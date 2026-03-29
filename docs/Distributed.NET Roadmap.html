@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Distributed .NET Engineer — Master Roadmap</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700&family=DM+Mono:wght@400;500&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0a0f;
+  --surface: #111118;
+  --surface2: #18181f;
+  --border: rgba(255,255,255,0.07);
+  --border2: rgba(255,255,255,0.12);
+  --text: #e8e8f0;
+  --muted: #6e6e85;
+  --muted2: #9898b0;
+  --accent: #7c6ff7;
+  --accent2: #a594f9;
+  --green: #34d39a;
+  --green-dim: rgba(52,211,154,0.12);
+  --amber: #f4a94e;
+  --amber-dim: rgba(244,169,78,0.12);
+  --coral: #f06b6b;
+  --coral-dim: rgba(240,107,107,0.12);
+  --pink: #e879a0;
+  --pink-dim: rgba(232,121,160,0.12);
+  --blue: #5ba8f5;
+  --blue-dim: rgba(91,168,245,0.12);
+  --teal: #38bdf8;
+  --teal-dim: rgba(56,189,248,0.12);
+  --gray-dim: rgba(150,150,170,0.1);
+  --radius: 10px;
+  --radius-sm: 6px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  font-size: 14px;
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+/* ── HEADER ── */
+.header {
+  padding: 56px 40px 40px;
+  border-bottom: 1px solid var(--border);
+  background: linear-gradient(180deg, rgba(124,111,247,0.05) 0%, transparent 100%);
+}
+.header-inner { max-width: 1100px; margin: 0 auto; }
+.header-eyebrow {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--accent2);
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+.header h1 {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(28px, 4vw, 46px);
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.15;
+  margin-bottom: 12px;
+  letter-spacing: -.02em;
+}
+.header-sub {
+  color: var(--muted2);
+  font-size: 15px;
+  max-width: 620px;
+  line-height: 1.6;
+}
+
+/* ── PLATFORM LEGEND ── */
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 20px 40px;
+  border-bottom: 1px solid var(--border);
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.legend-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  align-self: center;
+  margin-right: 4px;
+}
+.pill {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  font-weight: 500;
+  padding: 3px 10px;
+  border-radius: 20px;
+  letter-spacing: .04em;
+  cursor: default;
+  border: 1px solid transparent;
+}
+.pill-ps   { background: rgba(124,111,247,.15); color: var(--accent2); border-color: rgba(124,111,247,.25); }
+.pill-ae   { background: var(--amber-dim); color: var(--amber); border-color: rgba(244,169,78,.25); }
+.pill-dg   { background: var(--pink-dim); color: var(--pink); border-color: rgba(232,121,160,.25); }
+.pill-ix   { background: var(--teal-dim); color: var(--teal); border-color: rgba(56,189,248,.25); }
+.pill-yt   { background: var(--coral-dim); color: var(--coral); border-color: rgba(240,107,107,.25); }
+.pill-ms   { background: var(--blue-dim); color: var(--blue); border-color: rgba(91,168,245,.25); }
+.pill-book { background: var(--green-dim); color: var(--green); border-color: rgba(52,211,154,.25); }
+.pill-free { background: var(--gray-dim); color: var(--muted2); border-color: rgba(150,150,170,.2); }
+.pill-udemy{ background: rgba(240,107,107,.1); color: #f49e6b; border-color: rgba(240,107,107,.2); }
+
+/* ── LAYOUT ── */
+.main { max-width: 1100px; margin: 0 auto; padding: 32px 40px 80px; }
+
+/* ── PARALLEL TRACKS GRID ── */
+.parallel-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+@media (max-width: 720px) { .parallel-grid { grid-template-columns: 1fr; } }
+
+/* ── PHASE CARD ── */
+.phase {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition: border-color .2s;
+}
+.phase:hover { border-color: var(--border2); }
+.phase + .phase { margin-top: 12px; }
+
+.phase-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 20px;
+  cursor: pointer;
+  user-select: none;
+  transition: background .15s;
+}
+.phase-header:hover { background: var(--surface2); }
+
+.phase-dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.phase-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  color: #fff;
+  flex: 1;
+  line-height: 1.3;
+}
+.phase-meta {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--muted);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.phase-chev {
+  font-size: 10px;
+  color: var(--muted);
+  flex-shrink: 0;
+  transition: transform .25s;
+}
+.phase-chev.open { transform: rotate(180deg); }
+
+.phase-body { display: none; padding: 0 20px 18px; }
+.phase-body.open { display: block; }
+
+/* ── CALLOUT ── */
+.callout {
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  margin: 10px 0 12px;
+  font-size: 12px;
+  line-height: 1.55;
+  border-left: 3px solid;
+}
+.callout-purple { background: rgba(124,111,247,.08); border-color: var(--accent); color: #c4bcff; }
+.callout-green  { background: var(--green-dim);  border-color: var(--green);  color: #86efca; }
+.callout-amber  { background: var(--amber-dim);  border-color: var(--amber);  color: #fcd09a; }
+.callout-coral  { background: var(--coral-dim);  border-color: var(--coral);  color: #fca5a5; }
+.callout-pink   { background: var(--pink-dim);   border-color: var(--pink);   color: #f0abca; }
+.callout-blue   { background: var(--blue-dim);   border-color: var(--blue);   color: #93c5fd; }
+.callout strong { font-weight: 600; color: inherit; }
+
+/* ── TRACK ── */
+.track { margin-top: 14px; }
+.track-label {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-bottom: 6px;
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* ── COURSE ROW ── */
+.rows { display: flex; flex-direction: column; gap: 2px; }
+.row {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 8px 10px;
+  border-radius: var(--radius-sm);
+  transition: background .12s;
+  cursor: default;
+}
+.row:hover { background: var(--surface2); }
+.row-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  margin-top: 5px;
+  flex-shrink: 0;
+}
+.row-info { flex: 1; min-width: 0; }
+.row-title {
+  font-size: 13px;
+  color: var(--text);
+  line-height: 1.4;
+  font-weight: 500;
+}
+.row-note {
+  font-size: 11px;
+  color: var(--muted2);
+  margin-top: 2px;
+  line-height: 1.45;
+}
+.row.skip .row-title { text-decoration: line-through; opacity: .35; }
+.row.skip .row-note  { opacity: .3; }
+
+/* ── BADGES ── */
+.badge {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  font-weight: 500;
+  padding: 2px 8px;
+  border-radius: 20px;
+  flex-shrink: 0;
+  margin-top: 3px;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  border: 1px solid transparent;
+}
+.b-core     { background: rgba(124,111,247,.15); color: var(--accent2); border-color: rgba(124,111,247,.3); }
+.b-advanced { background: var(--green-dim); color: var(--green); border-color: rgba(52,211,154,.3); }
+.b-fe       { background: var(--amber-dim); color: var(--amber); border-color: rgba(244,169,78,.3); }
+.b-skip     { background: var(--gray-dim); color: var(--muted); border-color: rgba(150,150,170,.15); }
+.b-dsa      { background: var(--pink-dim); color: var(--pink); border-color: rgba(232,121,160,.3); }
+.b-sys      { background: var(--coral-dim); color: var(--coral); border-color: rgba(240,107,107,.3); }
+
+/* ── DIVIDER ── */
+.divider { height: 1px; background: var(--border); margin: 14px 0 10px; }
+
+/* ── SECTION HEADING ── */
+.section-heading {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: .12em;
+  color: var(--muted);
+  margin: 28px 0 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.section-heading::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+/* ── PARALLEL NOTE ── */
+.par-note {
+  display: flex;
+  gap: 10px;
+  padding: 9px 12px;
+  background: rgba(124,111,247,.06);
+  border: 1px dashed rgba(124,111,247,.25);
+  border-radius: var(--radius-sm);
+  margin-top: 12px;
+  font-size: 11px;
+  color: #c4bcff;
+  line-height: 1.5;
+}
+.par-note strong { font-weight: 600; color: var(--accent2); }
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--surface2); border-radius: 3px; }
+
+/* ── FOOTER ── */
+.footer {
+  text-align: center;
+  padding: 32px 40px;
+  border-top: 1px solid var(--border);
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--muted);
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-inner">
+    <div class="header-eyebrow">// Lifelong Learning Roadmap — v4.0 · 2025</div>
+    <h1>Distributed .NET Engineer<br>+ Frontend Technologies</h1>
+    <p class="header-sub">A sequenced, opinionated path from solid foundations to Staff-level distributed systems engineering. Every course justified. Every gap identified.</p>
+  </div>
+</div>
+
+<div class="legend" style="padding:16px 40px">
+  <span class="legend-label">Platforms</span>
+  <span class="pill pill-ps">Pluralsight</span>
+  <span class="pill pill-ae">AsyncExpert.com</span>
+  <span class="pill pill-dg">DesignGurus.io</span>
+  <span class="pill pill-ix">iximiuz Labs</span>
+  <span class="pill pill-yt">YouTube / Free</span>
+  <span class="pill pill-ms">Microsoft Docs</span>
+  <span class="pill pill-book">Books</span>
+  <span class="pill pill-udemy">Udemy</span>
+  <span class="pill pill-free">Free / OSS</span>
+</div>
+
+<div class="main">
+
+<!-- ══════════════════════════════════════════
+     PARALLEL TRACKS
+══════════════════════════════════════════ -->
+<div class="section-heading">Parallel tracks — run from day 1</div>
+<div class="parallel-grid">
+
+  <!-- DSA TRACK -->
+  <div class="phase">
+    <div class="phase-header" onclick="tog(this)">
+      <div class="phase-dot" style="background:var(--pink)"></div>
+      <div class="phase-title">DSA Track — runs throughout</div>
+      <div class="phase-meta">30–45 min/day</div>
+      <div class="phase-chev open">▲</div>
+    </div>
+    <div class="phase-body open">
+      <div class="callout callout-pink"><strong>Sequence matters.</strong> Foundations before patterns. Never open LeetCode before you understand the underlying data structures.</div>
+      <div class="track">
+        <div class="track-label"><span class="pill pill-free" style="font-size:9px">ApnaCollege</span>Step 1 — foundations (weeks 1–8)</div>
+        <div class="rows">
+          <div class="row"><div class="row-dot" style="background:var(--pink)"></div><div class="row-info"><div class="row-title">Sigma DSA Course — ApnaCollege</div><div class="row-note">Java delivery, implement everything in C#. Arrays, strings, linked lists, trees, graphs, recursion, sorting, DP basics. Do not skip to patterns until these feel instinctive. The Java→C# translation forces real understanding — ArrayList→List&lt;T&gt;, HashMap→Dictionary&lt;K,V&gt;, Stack/Queue map 1:1.</div></div><div class="badge b-dsa">core</div></div>
+        </div>
+      </div>
+      <div class="track">
+        <div class="track-label"><span class="pill pill-free" style="font-size:9px">AlgoMonster</span>Step 2 — bridge to patterns (overlaps trees onward)</div>
+        <div class="rows">
+          <div class="row"><div class="row-dot" style="background:var(--pink)"></div><div class="row-info"><div class="row-title">AlgoMonster</div><div class="row-note">Start when you hit trees in Sigma. Visual pattern templates bridge raw DSA knowledge into recognisable interview patterns. Complements Sigma — covers the same concepts with different framing.</div></div><div class="badge b-dsa">core</div></div>
+        </div>
+      </div>
+      <div class="track">
+        <div class="track-label"><span class="pill pill-dg" style="font-size:9px">DesignGurus</span>Step 3 — patterns (after foundations solid)</div>
+        <div class="rows">
+          <div class="row"><div class="row-dot" style="background:var(--pink)"></div><div class="row-info"><div class="row-title">Grokking the Coding Interview: Patterns</div><div class="row-note">476 lessons, C# supported. 28 patterns: sliding window, two pointers, fast/slow pointers, BFS/DFS, top-K, modified binary search, DP. Learn the pattern — not the problem. Do before NeetCode.</div></div><div class="badge b-dsa">core</div></div>
+          <div class="row"><div class="row-dot" style="background:var(--pink)"></div><div class="row-info"><div class="row-title">Grokking Advanced Coding Patterns</div><div class="row-note">Graphs, topological sort, Union-Find, Dijkstra, Trie, segment trees. Add after core patterns are solid — these appear at L5/L6.</div></div><div class="badge b-advanced">advanced</div></div>
+          <div class="row"><div class="row-dot" style="background:var(--pink)"></div><div class="row-info"><div class="row-title">Grokking Dynamic Programming Patterns</div><div class="row-note">Standalone DP course. Most common hard-problem category at MAANG. Treat as a focused sprint after core + advanced patterns.</div></div><div class="badge b-advanced">advanced</div></div>
+        </div>
+      </div>
+      <div class="track">
+        <div class="track-label"><span class="pill pill-free" style="font-size:9px">LeetCode</span>Step 4 — execution (after Grokking)</div>
+        <div class="rows">
+          <div class="row"><div class="row-dot" style="background:var(--pink)"></div><div class="row-info"><div class="row-title">NeetCode 150 — solve in C#</div><div class="row-note">neetcode.io maps each problem to the Grokking pattern. 2–3 problems/day. Stop condition: ~100–120 problems, can recognise pattern in under 2 min, code it cleanly in under 20. Then shift time to system design.</div></div><div class="badge b-dsa">core</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SYSTEM DESIGN TRACK -->
+  <div class="phase">
+    <div class="phase-header" onclick="tog(this)">
+      <div class="phase-dot" style="background:var(--coral)"></div>
+      <div class="phase-title">System Design Track — starts at Phase 4</div>
+      <div class="phase-meta">45–60 min/day from Phase 4</div>
+      <div class="phase-chev">▼</div>
+    </div>
+    <div class="phase-body">
+      <div class="callout callout-coral"><strong>Do not start early.</strong> Start at Phase 4 after Microservices Foundations. Before that you lack the distributed vocabulary and study becomes memorisation rather than understanding.</div>
+      <div class="track">
+        <div class="track-label"><span class="pill pill-dg" style="font-size:9px">DesignGurus</span>Core — start at Phase 4</div>
+        <div class="rows">
+          <div class="row"><div class="row-dot" style="background:var(--coral)"></div><div class="row-info"><div class="row-title">Grokking System Design Fundamentals</div><div class="row-note">Scalability primitives, load balancing, caching layers, databases at scale, consistent hashing, CAP theorem. Builds vocabulary needed to reason about trade-offs rather than recite them.</div></div><div class="badge b-sys">core</div></div>
+          <div class="row"><div class="row-dot" style="background:var(--coral)"></div><div class="row-info"><div class="row-title">Grokking the System Design Interview</div><div class="row-note">The original course, exclusively on designgurus.io, continuously updated. Worked designs: URL shortener, rate limiter, notification system, news feed, distributed cache, web crawler. Each chapter teaches a reusable pattern.</div></div><div class="badge b-sys">core</div></div>
+        </div>
+      </div>
+      <div class="track">
+        <div class="track-label"><span class="pill pill-book" style="font-size:9px">Books</span>Pair with — read alongside Grokking</div>
+        <div class="rows">
+          <div class="row"><div class="row-dot" style="background:var(--coral)"></div><div class="row-info"><div class="row-title">System Design Interview vols 1 &amp; 2 — Alex Xu</div><div class="row-note">Visual complement to Grokking. Covers back-of-envelope estimation, consistent hashing, key-value store, CDN, message queue, payment system, hotel reservation, stock exchange. Both books together give you the full picture.</div></div><div class="badge b-sys">core</div></div>
+          <div class="row"><div class="row-dot" style="background:var(--coral)"></div><div class="row-info"><div class="row-title">System Design Primer — github.com/donnemartin (free)</div><div class="row-note">Best single source for back-of-envelope estimation tables and scalability cheat sheet. Read before any mock interview.</div></div><div class="badge b-sys">core</div></div>
+        </div>
+      </div>
+      <div class="track">
+        <div class="track-label"><span class="pill pill-dg" style="font-size:9px">DesignGurus</span>Advanced — add at Phase 5 for L5/L6 depth</div>
+        <div class="rows">
+          <div class="row"><div class="row-dot" style="background:var(--coral)"></div><div class="row-info"><div class="row-title">Grokking the Advanced System Design Interview</div><div class="row-note">Real system case studies: Dynamo, BigTable, Cassandra, Kafka, Chubby. Moves from "I can answer the question" to "I understand why these systems are built this way." Required for Staff-level conversations.</div></div><div class="badge b-advanced">advanced</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     PHASE 1
+══════════════════════════════════════════ -->
+<div class="section-heading">Sequential phases</div>
+
+<div class="phase">
+  <div class="phase-header" onclick="tog(this)">
+    <div class="phase-dot" style="background:var(--accent)"></div>
+    <div class="phase-title">Phase 1 — C# &amp; .NET Foundation</div>
+    <div class="phase-meta">4–6 weeks</div>
+    <div class="phase-chev">▼</div>
+  </div>
+  <div class="phase-body open">
+    <div class="callout callout-purple">You own <strong>AsyncExpert.com</strong>. It replaces the Pluralsight async course entirely — deeper, more rigorous, includes content from Stephen Cleary, Marc Gravell, Daniel Marbach. Do not do both.</div>
+    <div class="par-note"><strong>DSA parallel →</strong> Start ApnaCollege Sigma on day 1 alongside this phase.</div>
+
+    <div class="track">
+      <div class="track-label"><span class="pill pill-ae" style="font-size:9px">AsyncExpert.com</span>Async &amp; concurrency — your existing license</div>
+      <div class="rows">
+        <div class="row"><div class="row-dot" style="background:var(--accent)"></div><div class="row-info"><div class="row-title">AsyncExpert — all 10 weeks</div><div class="row-note">Wks 1–2: threading, ThreadPool. Wks 3–5: Task API, async/await internals, ValueTask, IAsyncEnumerable. Wks 6–7: volatile, Interlocked, barriers, SemaphoreSlim, ReaderWriterLock. Wk 8: ConcurrentDictionary, BlockingCollection, ConcurrentQueue. Wks 9–10: Channels, Pipelines, IValueTaskSource. Mentors: Stephen Cleary, Marc Gravell, Daniel Marbach.</div></div><div class="badge b-core">core</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--accent)"></div><div class="row-info"><div class="row-title">Concurrency in C# Cookbook — Stephen Cleary</div><div class="row-note">Read alongside AsyncExpert weeks 6–10. Covers async streams, cancellation patterns, dataflow, testing async code. Cleary is a mentor in AsyncExpert — complementary, not duplicated.</div></div><div class="badge b-core">core</div></div>
+      </div>
+    </div>
+
+    <div class="track">
+      <div class="track-label"><span class="pill pill-ps" style="font-size:9px">Pluralsight</span>C# language</div>
+      <div class="rows">
+        <div class="row skip"><div class="row-dot" style="background:#555"></div><div class="row-info"><div class="row-title">C# Big Picture / Fundamentals / OOP basics</div><div class="row-note">Too entry-level — skip</div></div><div class="badge b-skip">skip</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--accent)"></div><div class="row-info"><div class="row-title">LINQ Fundamentals</div><div class="row-note">Deferred execution, projection, grouping, joins — core to idiomatic C#</div></div><div class="badge b-core">core</div></div>
+        <div class="row skip"><div class="row-dot" style="background:#555"></div><div class="row-info"><div class="row-title">Asynchronous Programming in C# (Pluralsight)</div><div class="row-note">Replaced entirely by AsyncExpert — skip</div></div><div class="badge b-skip">skip</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--accent)"></div><div class="row-info"><div class="row-title">Collections and Generics</div><div class="row-note">Complexity trade-offs, IEnumerable vs IQueryable, deferred execution — interview staple</div></div><div class="badge b-core">core</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--accent)"></div><div class="row-info"><div class="row-title">OO Design + Design Patterns</div><div class="row-note">SOLID, GoF patterns in modern C# 12 — architecture vocabulary needed before Phase 4</div></div><div class="badge b-core">core</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--accent)"></div><div class="row-info"><div class="row-title">C# Unit Testing</div><div class="row-note">xUnit, Moq, TDD — required discipline before writing any production-grade code</div></div><div class="badge b-core">core</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--green)"></div><div class="row-info"><div class="row-title">C# Performance Playbook + Benchmarking &amp; Profiling</div><div class="row-note">Span&lt;T&gt;, ArrayPool, stackalloc, BenchmarkDotNet. Do after AsyncExpert weeks 6–10 for the low-level mental model.</div></div><div class="badge b-advanced">advanced</div></div>
+        <div class="row skip"><div class="row-dot" style="background:#555"></div><div class="row-info"><div class="row-title">String Manipulation, Reflection, Expression Trees, Source Generators</div><div class="row-note">Low ROI for distributed focus — reference on demand</div></div><div class="badge b-skip">skip</div></div>
+      </div>
+    </div>
+
+    <div class="track">
+      <div class="track-label"><span class="pill pill-ps" style="font-size:9px">Pluralsight</span>.NET BCL path</div>
+      <div class="rows">
+        <div class="row"><div class="row-dot" style="background:var(--accent)"></div><div class="row-info"><div class="row-title">BCL Fundamentals + Working with JSON + HttpClient in .NET</div><div class="row-note">System.Text.Json source-gen serialization, IHttpClientFactory, retry + cancellation patterns — used in every service you will build</div></div><div class="badge b-core">core</div></div>
+        <div class="row skip"><div class="row-dot" style="background:#555"></div><div class="row-info"><div class="row-title">XML, Date/Time, Globalization, Cryptography, Orleans</div><div class="row-note">Reference when a specific need arises — not curriculum</div></div><div class="badge b-skip">skip</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PHASE 2 -->
+<div class="phase" style="margin-top:12px">
+  <div class="phase-header" onclick="tog(this)">
+    <div class="phase-dot" style="background:var(--accent)"></div>
+    <div class="phase-title">Phase 2 — ASP.NET Core Web API</div>
+    <div class="phase-meta">3–4 weeks</div>
+    <div class="phase-chev">▼</div>
+  </div>
+  <div class="phase-body open">
+    <div class="callout callout-purple">APIs only. Skip all MVC UI, Blazor, Razor Pages, SignalR, Globalization. Run <strong>Secure Authentication + Authorization</strong> from Phase 7 in parallel here.</div>
+    <div class="track">
+      <div class="track-label"><span class="pill pill-ps" style="font-size:9px">Pluralsight</span>Web API path</div>
+      <div class="rows">
+        <div class="row"><div class="row-dot" style="background:var(--accent)"></div><div class="row-info"><div class="row-title">Web API Fundamentals</div><div class="row-note">Routing, model binding, DI, EF Core wiring, configuration pipeline</div></div><div class="badge b-core">core</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--accent)"></div><div class="row-info"><div class="row-title">Web API Deep Dive</div><div class="row-note">HTTP semantics, method safety, idempotency, filtering/paging/sorting, HATEOAS</div></div><div class="badge b-core">core</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--accent)"></div><div class="row-info"><div class="row-title">Minimal APIs (.NET 8)</div><div class="row-note">Lighter than controllers — the modern approach for microservices endpoints</div></div><div class="badge b-core">core</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--accent)"></div><div class="row-info"><div class="row-title">Auth in Web API + OAuth2/OpenID Connect</div><div class="row-note">JWT validation, token introspection, OAuth2 flows, policy-based authz</div></div><div class="badge b-core">core</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--accent)"></div><div class="row-info"><div class="row-title">Developing Async Web API</div><div class="row-note">Async streaming, IAsyncEnumerable endpoints, CancellationToken propagation, deadlock patterns</div></div><div class="badge b-core">core</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--accent)"></div><div class="row-info"><div class="row-title">Dependency Injection in ASP.NET Core</div><div class="row-note">Lifetime management, keyed services (.NET 8), factory patterns, scope validation</div></div><div class="badge b-core">core</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--accent)"></div><div class="row-info"><div class="row-title">Logging and Monitoring</div><div class="row-note">Structured logging (Serilog), health check endpoints, OpenTelemetry hooks</div></div><div class="badge b-core">core</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--green)"></div><div class="row-info"><div class="row-title">Background Services / Hosted Services</div><div class="row-note">Worker services, outbox pattern host, IHostedService vs BackgroundService</div></div><div class="badge b-advanced">advanced</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--green)"></div><div class="row-info"><div class="row-title">Web API Best Practices + Versioning</div><div class="row-note">Versioning strategies without breaking existing clients — architecture decision territory</div></div><div class="badge b-advanced">advanced</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--green)"></div><div class="row-info"><div class="row-title">gRPC in ASP.NET Core</div><div class="row-note">Contract-first APIs, protobuf, server/client/bidi streaming — internal microservice comms</div></div><div class="badge b-advanced">advanced</div></div>
+        <div class="row skip"><div class="row-dot" style="background:#555"></div><div class="row-info"><div class="row-title">MVC Deep Dive, Razor Pages, Blazor, SignalR, Globalization</div></div><div class="badge b-skip">skip</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PHASE 3 -->
+<div class="phase" style="margin-top:12px">
+  <div class="phase-header" onclick="tog(this)">
+    <div class="phase-dot" style="background:var(--accent)"></div>
+    <div class="phase-title">Phase 3 — Data Layer: EF Core + NoSQL</div>
+    <div class="phase-meta">3 weeks</div>
+    <div class="phase-chev">▼</div>
+  </div>
+  <div class="phase-body open">
+    <div class="callout callout-purple">Know EF Core deeply — n+1, change tracker, compiled queries, migrations. NoSQL: focus on trade-offs and partition key strategy, not just CRUD. Run <strong>Data Security</strong> from Phase 7 in parallel.</div>
+    <div class="track">
+      <div class="track-label"><span class="pill pill-ps" style="font-size:9px">Pluralsight</span>EF Core path</div>
+      <div class="rows">
+        <div class="row"><div class="row-dot" style="background:var(--accent)"></div><div class="row-info"><div class="row-title">EF Core Fundamentals</div><div class="row-note">DbContext, migrations, relationships, tracking vs no-tracking, owned entities</div></div><div class="badge b-core">core</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--accent)"></div><div class="row-info"><div class="row-title">Querying Data in EF Core</div><div class="row-note">Compiled queries, raw SQL, split queries, fixing n+1, temporal tables</div></div><div class="badge b-core">core</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--accent)"></div><div class="row-info"><div class="row-title">EF Core Best Practices</div><div class="row-note">Testable repositories, safe schema evolution, when Dapper beats EF Core</div></div><div class="badge b-core">core</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--green)"></div><div class="row-info"><div class="row-title">EF Core + DDD</div><div class="row-note">Value object mapping, aggregate persistence, encapsulation without breaking EF</div></div><div class="badge b-advanced">advanced</div></div>
+        <div class="row skip"><div class="row-dot" style="background:#555"></div><div class="row-info"><div class="row-title">Mapping Real-world Classes, Cosmos DB provider, Encapsulating EF Core</div><div class="row-note">Covered by Best Practices + DDD courses — redundant</div></div><div class="badge b-skip">skip</div></div>
+      </div>
+    </div>
+    <div class="track">
+      <div class="track-label"><span class="pill pill-ps" style="font-size:9px">Pluralsight</span>NoSQL path</div>
+      <div class="rows">
+        <div class="row"><div class="row-dot" style="background:var(--accent)"></div><div class="row-info"><div class="row-title">NoSQL Introduction (CAP, PACELC, trade-offs)</div><div class="row-note">Mental model for choosing storage — direct system design interview vocabulary</div></div><div class="badge b-core">core</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--accent)"></div><div class="row-info"><div class="row-title">Key-value Databases (Redis, DynamoDB)</div><div class="row-note">Eviction policies, TTL, pub/sub, sorted sets, atomic operations — in every distributed system</div></div><div class="badge b-core">core</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--accent)"></div><div class="row-info"><div class="row-title">Azure Cosmos DB Deep Dive (Pluralsight)</div><div class="row-note">Partition key strategy, hot partition avoidance, consistency levels, RU budgeting, .NET SDK, multi-region writes. This replaces the generic Document Databases course — it's deeper and Azure-native.</div></div><div class="badge b-core">core</div></div>
+        <div class="row skip"><div class="row-dot" style="background:#555"></div><div class="row-info"><div class="row-title">Column-family, Graph databases</div><div class="row-note">Skip unless targeting analytics or graph-heavy domain</div></div><div class="badge b-skip">skip</div></div>
+      </div>
+    </div>
+    <div class="track">
+      <div class="track-label"><span class="pill pill-ms" style="font-size:9px">Microsoft Docs</span>Gap — caching patterns</div>
+      <div class="rows">
+        <div class="row"><div class="row-dot" style="background:var(--accent)"></div><div class="row-info"><div class="row-title">Caching guidance: cache-aside, write-through, cache stampede prevention</div><div class="row-note">Microsoft Architecture Center "Caching guidance" + IDistributedCache .NET docs. These patterns appear in every system design interview and every production service review.</div></div><div class="badge b-core">core</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PHASE 4 -->
+<div class="phase" style="margin-top:12px">
+  <div class="phase-header" onclick="tog(this)">
+    <div class="phase-dot" style="background:var(--accent)"></div>
+    <div class="phase-title">Phase 4 — Architecture: DDD + Clean + Microservices</div>
+    <div class="phase-meta">4–5 weeks · start system design track here</div>
+    <div class="phase-chev">▼</div>
+  </div>
+  <div class="phase-body open">
+    <div class="callout callout-purple">Senior → Staff differentiation lives here. DDD + CQRS + event-driven is the vocabulary of every architecture conversation at this level.</div>
+    <div class="par-note"><strong>System design parallel →</strong> Start Grokking System Design Fundamentals at the beginning of this phase.</div>
+    <div class="track">
+      <div class="track-label"><span class="pill pill-ps" style="font-size:9px">Pluralsight</span>DDD path</div>
+      <div class="rows">
+        <div class="row"><div class="row-dot" style="background:var(--accent)"></div><div class="row-info"><div class="row-title">DDD Fundamentals</div><div class="row-note">Entities, value objects, aggregates, bounded contexts, ubiquitous language — the core vocabulary</div></div><div class="badge b-core">core</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--accent)"></div><div class="row-info"><div class="row-title">DDD in Practice</div><div class="row-note">Domain events, encoding invariants, event storming snapshot — hands-on application</div></div><div class="badge b-core">core</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--accent)"></div><div class="row-info"><div class="row-title">DDD: CQRS in Practice</div><div class="row-note">Read/write split, MediatR pipeline, projection reads, command/query handlers</div></div><div class="badge b-core">core</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--accent)"></div><div class="row-info"><div class="row-title">Clean Architecture + ASP.NET Core Clean Architecture</div><div class="row-note">Layer boundaries, dependency inversion in practice, onion/hexagonal wiring</div></div><div class="badge b-core">core</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--green)"></div><div class="row-info"><div class="row-title">Refactoring Anemic Domain Model</div><div class="row-note">Most common DDD failure mode — recognising and fixing it in a real codebase</div></div><div class="badge b-advanced">advanced</div></div>
+        <div class="row skip"><div class="row-dot" style="background:#555"></div><div class="row-info"><div class="row-title">DDD Specification Pattern, DDD Legacy Projects, Designing Modular Software</div><div class="row-note">Solid reference — read when the specific problem arises, not as curriculum</div></div><div class="badge b-skip">defer</div></div>
+      </div>
+    </div>
+    <div class="track">
+      <div class="track-label"><span class="pill pill-ps" style="font-size:9px">Pluralsight</span>Microservices path</div>
+      <div class="rows">
+        <div class="row"><div class="row-dot" style="background:var(--accent)"></div><div class="row-info"><div class="row-title">Microservices Foundations</div><div class="row-note">Service boundaries, decomposition strategies, when NOT to use microservices</div></div><div class="badge b-core">core</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--accent)"></div><div class="row-info"><div class="row-title">Microservices Architectural Strategies</div><div class="row-note">API gateway, saga pattern, choreography vs orchestration, service mesh intro</div></div><div class="badge b-core">core</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--accent)"></div><div class="row-info"><div class="row-title">Developing Reactive / Event-driven Systems</div><div class="row-note">Idempotency, retry with jitter, circuit breakers, transactional outbox — production essentials</div></div><div class="badge b-core">core</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--green)"></div><div class="row-info"><div class="row-title">Microservices Building and Testing</div><div class="row-note">Contract testing (Pact), integration test strategies across service boundaries</div></div><div class="badge b-advanced">advanced</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--green)"></div><div class="row-info"><div class="row-title">Microservices Security</div><div class="row-note">Zero-trust, service-to-service auth, secret management at scale</div></div><div class="badge b-advanced">advanced</div></div>
+        <div class="row skip"><div class="row-dot" style="background:#555"></div><div class="row-info"><div class="row-title">Microservices Transition Strategies (Strangler pattern)</div><div class="row-note">Read when you have an actual monolith to migrate — not curriculum</div></div><div class="badge b-skip">defer</div></div>
+      </div>
+    </div>
+    <div class="track">
+      <div class="track-label"><span class="pill pill-udemy" style="font-size:9px">Udemy</span>Hands-on — English replacements for DevMentors Polish courses</div>
+      <div class="rows">
+        <div class="row"><div class="row-dot" style="background:var(--accent)"></div><div class="row-info"><div class="row-title">Neil Cummings — Build a Microservices App with .NET and Next.js</div><div class="row-note">Full-stack end-to-end: .NET microservices backend + Next.js frontend, RabbitMQ, gRPC, IdentityServer, YARP gateway, deployed to K8s. Goes deep on reasoning behind decisions. 4.9 rating. Also do his CQRS + Event Sourcing with Kafka course — writes the framework by hand without MassTransit abstraction.</div></div><div class="badge b-core">core</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--green)"></div><div class="row-info"><div class="row-title">Mehmet Ozkaya GitHub repos (free) — aspnetrun/run-aspnetcore-microservices</div><div class="row-note">3000+ stars. Study as architecture reference alongside the Neil Cummings course. Different architectural perspective — DDD, CQRS, Vertical Slice, Clean Architecture, Redis, Marten, Docker Compose. The code is the course.</div></div><div class="badge b-advanced">advanced</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--accent)"></div><div class="row-info"><div class="row-title">Polly v8 / Microsoft.Extensions.Resilience — official docs + GitHub wiki</div><div class="row-note">Built into .NET 8 HttpClient pipeline by default. Circuit breaker, retry with exponential backoff + jitter, bulkhead, timeout, hedging. Read the v7 → v8 migration guide — the API changed substantially.</div></div><div class="badge b-core">core</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--green)"></div><div class="row-info"><div class="row-title">DevMentors "Distributed .NET Core" — YouTube, ~20 hours, English, free</div><div class="row-note">youtube.com/@DevMentorsPL — search "Distributed .NET Core" playlist. Covers microservices from scratch with the DShop reference project. Different architectural lens from Neil Cummings.</div></div><div class="badge b-advanced">advanced</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PHASE 5 -->
+<div class="phase" style="margin-top:12px">
+  <div class="phase-header" onclick="tog(this)">
+    <div class="phase-dot" style="background:var(--coral)"></div>
+    <div class="phase-title">Phase 5 — Distributed Systems Core</div>
+    <div class="phase-meta">5–6 weeks · intensify system design track</div>
+    <div class="phase-chev">▼</div>
+  </div>
+  <div class="phase-body open">
+    <div class="callout callout-coral"><strong>No Pluralsight coverage for this phase.</strong> These are the topics that separate a backend engineer from a distributed systems engineer. Read Kleppmann before anything else here.</div>
+    <div class="track">
+      <div class="track-label"><span class="pill pill-book" style="font-size:9px">Book</span>Theory foundation — read first</div>
+      <div class="rows">
+        <div class="row"><div class="row-dot" style="background:var(--coral)"></div><div class="row-info"><div class="row-title">Designing Data-Intensive Applications — Kleppmann, chapters 5–9</div><div class="row-note">The distributed systems bible. Ch5: replication (leader/follower, multi-leader, leaderless). Ch6: partitioning + secondary indexes. Ch7: transactions + isolation levels. Ch8: unreliable networks, clocks, Byzantine faults. Ch9: consistency + consensus, linearizability, CAP nuance, Raft/Paxos overview. Mandatory before studying Kafka or designing any data-intensive system.</div></div><div class="badge b-core">core</div></div>
+      </div>
+    </div>
+    <div class="track">
+      <div class="track-label"><span class="pill pill-ps" style="font-size:9px">Pluralsight</span>Kafka — courses 1, 2, 3, 8 only from "Build and Monitor Data Pipelines" path</div>
+      <div class="rows">
+        <div class="row"><div class="row-dot" style="background:var(--coral)"></div><div class="row-info"><div class="row-title">[1] Up and Running with Apache Kafka</div><div class="row-note">Broker fundamentals, topic creation, basic producer/consumer — foundation layer</div></div><div class="badge b-core">core</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--coral)"></div><div class="row-info"><div class="row-title">[2] Produce and Consume Data in Kafka</div><div class="row-note">Producer acknowledgments (acks=all), consumer groups, offset management, partition assignment — core developer knowledge</div></div><div class="badge b-core">core</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--coral)"></div><div class="row-info"><div class="row-title">[3] Design Topics, Schemas, and Retention Policies</div><div class="row-note">Topic design decisions, partition count trade-offs, schema registry basics, retention policies — directly relevant to event-driven microservice design</div></div><div class="badge b-core">core</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--green)"></div><div class="row-info"><div class="row-title">[8] Patterns, Anti-patterns, and Best Practices in Kafka Pipelines</div><div class="row-note">Add when available — most valuable course in the path for architecture conversations</div></div><div class="badge b-advanced">advanced</div></div>
+        <div class="row skip"><div class="row-dot" style="background:#555"></div><div class="row-info"><div class="row-title">[4] Kafka Connect, [5] Kafka Streams/ksqlDB, [6] Operate Clusters, [7] Secure and Scale</div><div class="row-note">Data engineering / platform ops territory — skip entirely</div></div><div class="badge b-skip">skip</div></div>
+        <div class="row skip"><div class="row-dot" style="background:#555"></div><div class="row-info"><div class="row-title">"Handling Streaming Data with Messaging Systems" path</div><div class="row-note">Survey course — Kafka, Pulsar, Kinesis, Event Hub, Google Pub/Sub surface-level. Skip entirely.</div></div><div class="badge b-skip">skip</div></div>
+      </div>
+    </div>
+    <div class="track">
+      <div class="track-label"><span class="pill pill-free" style="font-size:9px">Free / OSS</span>MassTransit + messaging</div>
+      <div class="rows">
+        <div class="row"><div class="row-dot" style="background:var(--coral)"></div><div class="row-info"><div class="row-title">MassTransit official docs — masstransit.io</div><div class="row-note">Standard .NET library for event-driven microservices. Abstracts over Kafka, RabbitMQ, Azure Service Bus. Work through: Getting Started, Sagas (state machine + courier), transactional outbox, consumer pipelines, retry/fault topology. Hands-on is non-negotiable here.</div></div><div class="badge b-core">core</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--coral)"></div><div class="row-info"><div class="row-title">RabbitMQ tutorials — rabbitmq.com/tutorials</div><div class="row-note">AMQP mental model: direct/topic/fanout exchanges, binding keys, DLQ for poison messages, prefetch for backpressure. Many .NET shops use RabbitMQ for simpler cases where Kafka is overkill.</div></div><div class="badge b-core">core</div></div>
+      </div>
+    </div>
+    <div class="track">
+      <div class="track-label"><span class="pill pill-free" style="font-size:9px">Free</span>Observability stack</div>
+      <div class="rows">
+        <div class="row"><div class="row-dot" style="background:var(--coral)"></div><div class="row-info"><div class="row-title">OpenTelemetry in .NET — opentelemetry.io .NET docs</div><div class="row-note">ActivitySource for traces, Meter for metrics, log correlation, trace context propagation across HTTP + messaging. The modern standard — replaces manual correlation IDs.</div></div><div class="badge b-core">core</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--coral)"></div><div class="row-info"><div class="row-title">Prometheus + Grafana: prometheus-net library, PromQL, RED method</div><div class="row-note">Expose /metrics from ASP.NET Core. Know RED method (Rate, Errors, Duration) and how to write histogram_quantile() for latency percentiles. Grafana Play sandbox is free.</div></div><div class="badge b-core">core</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--green)"></div><div class="row-info"><div class="row-title">Jaeger: distributed trace visualization (Docker, free)</div><div class="row-note">Run locally with Docker, instrument a multi-service app, understand trace waterfall diagrams. Half-day hands-on exercise that cements OpenTelemetry concepts.</div></div><div class="badge b-advanced">advanced</div></div>
+      </div>
+    </div>
+    <div class="track">
+      <div class="track-label"><span class="pill pill-free" style="font-size:9px">Free</span>Distributed systems theory extras</div>
+      <div class="rows">
+        <div class="row"><div class="row-dot" style="background:var(--coral)"></div><div class="row-info"><div class="row-title">Consistent hashing + virtual nodes — Alex Xu vol 1 ch 5</div><div class="row-note">Used in distributed caches, load balancers, partitioned databases. Asked directly in system design interviews. Implement a simple version in C# to internalise it.</div></div><div class="badge b-core">core</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--green)"></div><div class="row-info"><div class="row-title">Raft consensus — raft.github.io (free, interactive visualization)</div><div class="row-note">Readable paper + interactive visualizer. Explains how etcd (used by Kubernetes) and distributed databases achieve leader election and log replication.</div></div><div class="badge b-advanced">advanced</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--green)"></div><div class="row-info"><div class="row-title">Rate limiting algorithms: token bucket, leaky bucket, sliding window counter</div><div class="row-note">Alex Xu vol 1 ch 4 + ASP.NET Core 7+ built-in rate limiting middleware docs. Implement each algorithm in C# to own the trade-offs.</div></div><div class="badge b-advanced">advanced</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--green)"></div><div class="row-info"><div class="row-title">Event sourcing: append-only log, projections, snapshots — eventstore.com docs</div><div class="row-note">Greg Young's "Simple CQRS" paper (free) + EventStoreDB free tier. Marten library provides event sourcing on PostgreSQL — used in the Neil Cummings course.</div></div><div class="badge b-advanced">advanced</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PHASE 6 -->
+<div class="phase" style="margin-top:12px">
+  <div class="phase-header" onclick="tog(this)">
+    <div class="phase-dot" style="background:var(--accent)"></div>
+    <div class="phase-title">Phase 6 — Cloud: Azure + AWS</div>
+    <div class="phase-meta">4–5 weeks</div>
+    <div class="phase-chev">▼</div>
+  </div>
+  <div class="phase-body open">
+    <div class="callout callout-purple">Pluralsight covers Azure compute and data well. <strong>Microsoft Docs</strong> fills everything else — API Management, Event Grid, Event Hubs, Managed Identity, Bicep, Container Apps, Monitor. Cantril AWS is your cloud fundamentals baseline.</div>
+    <div class="track">
+      <div class="track-label"><span class="pill pill-ps" style="font-size:9px">Pluralsight</span>Azure — what Pluralsight does well</div>
+      <div class="rows">
+        <div class="row"><div class="row-dot" style="background:var(--accent)"></div><div class="row-info"><div class="row-title">Azure Functions Deep Dive</div><div class="row-note">Triggers, bindings, Durable Functions for workflow orchestration + saga pattern. Sequence in Phase 5/6 — Durable Functions implements the distributed patterns from Phase 4.</div></div><div class="badge b-core">core</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--accent)"></div><div class="row-info"><div class="row-title">Azure Cosmos DB Deep Dive (already in Phase 3)</div><div class="row-note">Reinforced here from the cloud architecture perspective — global distribution, multi-region writes, conflict resolution</div></div><div class="badge b-core">core</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--accent)"></div><div class="row-info"><div class="row-title">AKS (Azure Kubernetes Service) — search Pluralsight for AKS developer path</div><div class="row-note">Azure CNI, Azure Monitor integration, AKS node pools, Azure Container Registry, Managed Identity for pods. Replaces generic cloud K8s content — Azure-specific is more useful for .NET shops.</div></div><div class="badge b-core">core</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--green)"></div><div class="row-info"><div class="row-title">AZ-204 path on Pluralsight — revisit for practical reactivation</div><div class="row-note">You did AZ-204 3–4 years ago. A practical Pluralsight course reactivates faster than re-reading docs. Covers Azure Service Bus, Event Grid, Cosmos DB, Key Vault, Azure Functions from a developer perspective.</div></div><div class="badge b-advanced">advanced</div></div>
+      </div>
+    </div>
+    <div class="track">
+      <div class="track-label"><span class="pill pill-ms" style="font-size:9px">Microsoft Docs</span>Azure — what to learn from official docs (Pluralsight gaps)</div>
+      <div class="rows">
+        <div class="row"><div class="row-dot" style="background:var(--accent)"></div><div class="row-info"><div class="row-title">Azure Service Bus: topics, subscriptions, sessions, DLQ, competing consumers</div><div class="row-note">Microsoft "Service Bus messaging" docs. Sessions enable ordered processing; competing consumers enable horizontal scale. Preferred over Kafka in Azure enterprise .NET shops.</div></div><div class="badge b-core">core</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--accent)"></div><div class="row-info"><div class="row-title">Azure Managed Identity — eliminate secrets entirely</div><div class="row-note">Service-to-service auth without credentials. Every Azure service you deploy should use Managed Identity over connection strings. Read "What are managed identities for Azure resources" + "Tutorial: Use a managed identity to access Azure SQL."</div></div><div class="badge b-core">core</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--accent)"></div><div class="row-info"><div class="row-title">Azure Key Vault: secrets, certificates, keys, .NET SDK integration</div><div class="row-note">Microsoft.Extensions.Configuration.AzureKeyVault package wires Key Vault into the .NET configuration system transparently. Essential for production secret management.</div></div><div class="badge b-core">core</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--accent)"></div><div class="row-info"><div class="row-title">Application Insights + Azure Monitor for .NET distributed tracing</div><div class="row-note">OpenTelemetry exporter to Azure Monitor. Log Analytics workspaces, Kusto queries for log analysis, Application Map for service dependency visualization. The Azure-native observability stack.</div></div><div class="badge b-core">core</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--green)"></div><div class="row-info"><div class="row-title">Azure Event Hubs (Kafka-compatible endpoint) + Event Grid for event routing</div><div class="row-note">Event Hubs is Kafka at the protocol level — your Kafka knowledge transfers directly. Event Grid is for reactive event routing between Azure services. Read the official "choose between messaging services" decision guide first.</div></div><div class="badge b-advanced">advanced</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--green)"></div><div class="row-info"><div class="row-title">Azure Container Apps — the modern serverless container option</div><div class="row-note">KEDA-based autoscaling, Dapr integration, managed ingress. Positioned between Azure Functions (serverless) and AKS (full K8s). Good fit for simpler microservices that don't need full K8s control.</div></div><div class="badge b-advanced">advanced</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--green)"></div><div class="row-info"><div class="row-title">Azure Bicep — IaC for Azure (simpler than Terraform for Azure-native work)</div><div class="row-note">Declarative Azure IaC with type safety and IntelliSense. Microsoft Learn "Fundamentals of Bicep" free path (~6 hours). If your team uses Terraform use that — if greenfield Azure, Bicep is less friction.</div></div><div class="badge b-advanced">advanced</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--green)"></div><div class="row-info"><div class="row-title">Azure API Management — policies, developer portal, rate limiting, subscriptions</div><div class="row-note">No good Pluralsight coverage exists. Microsoft Learn "Explore Azure API Management" module (free, ~45 min) gives the developer perspective. APIM policies are their own mini-language — worth an hour of focused reading.</div></div><div class="badge b-advanced">advanced</div></div>
+      </div>
+    </div>
+    <div class="track">
+      <div class="track-label"><span class="pill pill-free" style="font-size:9px">Cantril</span>AWS — your existing lifetime subscription</div>
+      <div class="rows">
+        <div class="row"><div class="row-dot" style="background:var(--accent)"></div><div class="row-info"><div class="row-title">Cantril — Developer Associate + Solutions Architect (cloud fundamentals layer)</div><div class="row-note">Best cloud content in existence. Use as your cloud fundamentals baseline — concepts transfer directly to Azure. SQS/SNS = Service Bus/Event Grid. DynamoDB = Cosmos DB. Lambda = Azure Functions. EKS = AKS. The mental model is platform-agnostic even if the services aren't.</div></div><div class="badge b-core">core</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PHASE 6B — CONTAINERS -->
+<div class="phase" style="margin-top:12px">
+  <div class="phase-header" onclick="tog(this)">
+    <div class="phase-dot" style="background:var(--accent)"></div>
+    <div class="phase-title">Phase 6B — Containers &amp; Kubernetes</div>
+    <div class="phase-meta">3–4 weeks</div>
+    <div class="phase-chev">▼</div>
+  </div>
+  <div class="phase-body open">
+    <div class="callout callout-purple">Pluralsight gives you the theory. iximiuz Labs gives you the hands-on muscle memory. Both are required — watching K8s videos without running real clusters produces shallow knowledge.</div>
+    <div class="track">
+      <div class="track-label"><span class="pill pill-ps" style="font-size:9px">Pluralsight</span>Docker path</div>
+      <div class="rows">
+        <div class="row"><div class="row-dot" style="background:var(--accent)"></div><div class="row-info"><div class="row-title">Docker Foundations + Your First Docker App</div><div class="row-note">Images, layers, multi-stage builds (.NET publish → runtime), registries</div></div><div class="badge b-core">core</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--accent)"></div><div class="row-info"><div class="row-title">Docker Compose</div><div class="row-note">Local multi-service orchestration — daily development tool for microservices</div></div><div class="badge b-core">core</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--green)"></div><div class="row-info"><div class="row-title">Developing Docker Apps (best practices, security)</div><div class="row-note">Rootless containers, slim base images, .dockerignore, build cache exploitation</div></div><div class="badge b-advanced">advanced</div></div>
+        <div class="row skip"><div class="row-dot" style="background:#555"></div><div class="row-info"><div class="row-title">Go / Node.js / Python / React Docker courses</div></div><div class="badge b-skip">skip</div></div>
+      </div>
+    </div>
+    <div class="track">
+      <div class="track-label"><span class="pill pill-ix" style="font-size:9px">iximiuz Labs</span>Containers hands-on — run alongside Docker + K8s theory</div>
+      <div class="rows">
+        <div class="row"><div class="row-dot" style="background:var(--teal)"></div><div class="row-info"><div class="row-title">Container image building skill path — "Dockerfiles: From Beginner to Pro"</div><div class="row-note">labs.iximiuz.com — auto-graded Dockerfile challenges. Multi-stage builds, layer composition, common build failures. Free tier includes several challenges.</div></div><div class="badge b-core">core</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--teal)"></div><div class="row-info"><div class="row-title">Container networking: Linux namespaces, cgroups, network bridges</div><div class="row-note">"How Linux containers are built from the ground up" tutorial — understand why containers work, not just how to use them. Essential for debugging K8s networking issues.</div></div><div class="badge b-core">core</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--teal)"></div><div class="row-info"><div class="row-title">K8s troubleshooting challenges: CrashLoopBackOff, OOMKilled, failed scheduling</div><div class="row-note">Auto-graded challenges simulating real production incidents. The OOMKilled challenge is directly relevant to setting resource requests/limits correctly.</div></div><div class="badge b-advanced">advanced</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--teal)"></div><div class="row-info"><div class="row-title">Kubernetes the Very Hard Way</div><div class="row-note">Builds a K8s cluster component by component. Goal is deep understanding of etcd, scheduler, controller manager, kubelet interaction — not production setup. Do when you want Staff-level K8s depth.</div></div><div class="badge b-advanced">advanced</div></div>
+      </div>
+    </div>
+    <div class="track">
+      <div class="track-label"><span class="pill pill-ps" style="font-size:9px">Pluralsight</span>Kubernetes — developer track only (by course number)</div>
+      <div class="rows">
+        <div class="row"><div class="row-dot" style="background:var(--accent)"></div><div class="row-info"><div class="row-title">[1] Docker and Kubernetes: The Dynamic Duo</div><div class="row-note">Bridge from Docker to K8s — microservices patterns, immutable architecture, GitOps intro</div></div><div class="badge b-core">core</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--accent)"></div><div class="row-info"><div class="row-title">[2] K8s Basic Concepts · [3] Pods · [4] Services · [5] Deployments</div><div class="row-note">The K8s object model: architecture, scheduler, pods/services/configmaps/secrets, YAML manifests, multi-container patterns, ClusterIP/NodePort/LoadBalancer, rolling updates, resource requests/limits</div></div><div class="badge b-core">core</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--accent)"></div><div class="row-info"><div class="row-title">[9] Maintaining, Monitoring, and Troubleshooting K8s</div><div class="row-note">Helm upgrades, log centralization, diagnosing CrashLoopBackOff / OOMKilled — things you hit weekly in production</div></div><div class="badge b-core">core</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--accent)"></div><div class="row-info"><div class="row-title">[27] Horizontal Pod Autoscaling · [35] Helm</div><div class="row-note">HPA based on CPU/memory, KEDA for event-driven scaling, Helm chart templating and release management — standard in every real K8s deployment</div></div><div class="badge b-core">core</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--green)"></div><div class="row-info"><div class="row-title">[30] GitOps with Flux 2 · [34] Istio service mesh · [29] K8s + Terraform</div><div class="row-note">GitOps reconciliation loop, mTLS between services, traffic shaping, canary deployments, IaC for cluster resources</div></div><div class="badge b-advanced">advanced</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--accent)"></div><div class="row-info"><div class="row-title">K8s for Developers path: Core Concepts + Deploying Your Code + Moving to the Cloud</div><div class="row-note">Developer-focused view: kubectl, kind/minikube, liveness vs readiness probes, AKS/EKS managed ingress</div></div><div class="badge b-core">core</div></div>
+        <div class="row skip"><div class="row-dot" style="background:#555"></div><div class="row-info"><div class="row-title">[6][7][8] API Server/Controllers/Storage — CKA admin track · [10][11][12] Security hardening — CKS · [26][28][31][32][33] Rancher, Admission Controllers, AIOps, Linkerd, Jenkins</div></div><div class="badge b-skip">skip</div></div>
+      </div>
+    </div>
+    <div class="track">
+      <div class="track-label"><span class="pill pill-ps" style="font-size:9px">Pluralsight</span>Terraform</div>
+      <div class="rows">
+        <div class="row"><div class="row-dot" style="background:var(--green)"></div><div class="row-info"><div class="row-title">Terraform: Getting Started + Variables + State</div><div class="row-note">Enough to read/write IaC code as a developer contributor without owning the platform layer</div></div><div class="badge b-advanced">advanced</div></div>
+        <div class="row skip"><div class="row-dot" style="background:#555"></div><div class="row-info"><div class="row-title">Terraform Providers deep-dive, Modules, Automation/GitOps, Lifecycle Management</div><div class="row-note">Platform engineering territory — defer unless IaC is a primary responsibility</div></div><div class="badge b-skip">skip/defer</div></div>
+      </div>
+    </div>
+    <div class="track">
+      <div class="track-label"><span class="pill pill-free" style="font-size:9px">Free</span>CI/CD — gap not in any Pluralsight path</div>
+      <div class="rows">
+        <div class="row"><div class="row-dot" style="background:var(--accent)"></div><div class="row-info"><div class="row-title">GitHub Actions: build → test → Docker push → K8s deploy</div><div class="row-note">GitHub Actions official docs. Build a full pipeline for a .NET microservice: dotnet test → docker build → push to GHCR → kubectl apply or Flux reconcile. Most common CI/CD in .NET open source.</div></div><div class="badge b-core">core</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--green)"></div><div class="row-info"><div class="row-title">Azure DevOps Pipelines (YAML) — Microsoft Learn free path</div><div class="row-note">"Build .NET with Azure Pipelines" Microsoft Learn path, free, ~4 hours. Prioritise if targeting Azure-heavy roles.</div></div><div class="badge b-advanced">advanced</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PHASE 7 — SECURITY -->
+<div class="phase" style="margin-top:12px">
+  <div class="phase-header" onclick="tog(this)">
+    <div class="phase-dot" style="background:var(--green)"></div>
+    <div class="phase-title">Phase 7 — Security (integrated, not sequential)</div>
+    <div class="phase-meta">Run parallel to phases 2–4</div>
+    <div class="phase-chev">▼</div>
+  </div>
+  <div class="phase-body open">
+    <div class="callout callout-green">Do not block on this. Integrate: <strong>Secure Auth + Authorization</strong> during Phase 2. <strong>Input Validation + Data Security</strong> during Phase 3. <strong>Business Logic + Communications</strong> during Phase 4. Do labs immediately after the corresponding course.</div>
+    <div class="track">
+      <div class="track-label"><span class="pill pill-ps" style="font-size:9px">Pluralsight</span>Secure Coding for C# — full path</div>
+      <div class="rows">
+        <div class="row"><div class="row-dot" style="background:var(--green)"></div><div class="row-info"><div class="row-title">Secure Coding Best Practices + Build &amp; Deploy Secure Code</div><div class="row-note">OWASP, threat modeling, supply chain validation, dependency security scanning</div></div><div class="badge b-core">core</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--green)"></div><div class="row-info"><div class="row-title">Secure Authentication — run during Phase 2</div><div class="row-note">OAuth2, OIDC, MFA, password hashing (PBKDF2/Argon2) — pair with Phase 2 auth courses</div></div><div class="badge b-core">core</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--green)"></div><div class="row-info"><div class="row-title">Secure Authorization — run during Phase 2</div><div class="row-note">Horizontal + vertical access control, DB-level authorization, resource-based policies</div></div><div class="badge b-core">core</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--green)"></div><div class="row-info"><div class="row-title">Input Validation + Data Security — run during Phase 3</div><div class="row-note">SQL injection, XSS, unsafe deserialization, SSRF, encryption at rest, GDPR considerations</div></div><div class="badge b-core">core</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--green)"></div><div class="row-info"><div class="row-title">Secret Management for C#</div><div class="row-note">Azure Key Vault, dotnet user-secrets — never secrets in source or config files</div></div><div class="badge b-advanced">advanced</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--green)"></div><div class="row-info"><div class="row-title">Secure Business Logic + Secure Communications + Web Client Security + Secure File Handling</div><div class="row-note">Race conditions, rate limiting, DoS prevention, TLS enforcement, CSP headers, CSRF, file content validation</div></div><div class="badge b-advanced">advanced</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--green)"></div><div class="row-info"><div class="row-title">Desktop labs — all 6 exercises</div><div class="row-note">SQL injection/XSS/CSRF lab, buffer overflow/deserialization lab, error handling lab, encryption lab, password lab, web client security lab. Do each immediately after the corresponding course.</div></div><div class="badge b-core">core</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PHASE 8 — JAVASCRIPT + REACT -->
+<div class="phase" style="margin-top:12px">
+  <div class="phase-header" onclick="tog(this)">
+    <div class="phase-dot" style="background:var(--amber)"></div>
+    <div class="phase-title">Phase 8 — JavaScript Foundation + React Frontend</div>
+    <div class="phase-meta">5–6 weeks · parallel or after phases 1–2</div>
+    <div class="phase-chev">▼</div>
+  </div>
+  <div class="phase-body open">
+    <div class="callout callout-amber">Start with javascript.info to build a solid JS mental model — closures, prototypes, event loop, Promises. Then React on top of that foundation will actually make sense instead of feeling like magic.</div>
+    <div class="track">
+      <div class="track-label"><span class="pill pill-free" style="font-size:9px">javascript.info</span>JS foundation — before React</div>
+      <div class="rows">
+        <div class="row"><div class="row-dot" style="background:var(--amber)"></div><div class="row-info"><div class="row-title">Part 1: The JavaScript Language — all chapters</div><div class="row-note">Closures, scope, prototype chain, event loop, Promises, async/await, generators, Proxy/Reflect, WeakMap/WeakSet. These are what make TypeScript and React behaviour predictable rather than magical. Last updated March 22, 2026 — actively maintained.</div></div><div class="badge b-fe">core</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--amber)"></div><div class="row-info"><div class="row-title">Part 2: Browser — Document, Events, Interfaces</div><div class="row-note">DOM manipulation, event bubbling/capturing, browser APIs — essential for understanding what React abstracts over</div></div><div class="badge b-fe">core</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--green)"></div><div class="row-info"><div class="row-title">Part 3: Additional articles (select chapters)</div><div class="row-note">Network requests, storing data in the browser, animation, Web Components. Read on demand — not all chapters are relevant.</div></div><div class="badge b-advanced">advanced</div></div>
+      </div>
+    </div>
+    <div class="track">
+      <div class="track-label"><span class="pill pill-ps" style="font-size:9px">Pluralsight</span>React 18/19 path — curated (skip all CODE LABs)</div>
+      <div class="rows">
+        <div class="row"><div class="row-dot" style="background:var(--amber)"></div><div class="row-info"><div class="row-title">React Fundamentals + TypeScript with React</div><div class="row-note">Start both simultaneously — TypeScript is non-negotiable in 2025+ codebases. Components, JSX, props, rendering model, type-safe hooks.</div></div><div class="badge b-fe">core</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--amber)"></div><div class="row-info"><div class="row-title">Using Hooks in React</div><div class="row-note">useState, useEffect, useReducer, useCallback, useMemo, custom hooks — and the pitfalls (stale closures, infinite re-render loops)</div></div><div class="badge b-fe">core</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--amber)"></div><div class="row-info"><div class="row-title">Managing State in React 18</div><div class="row-note">Context, Zustand / Redux Toolkit, when to colocate vs lift state — state architecture decisions</div></div><div class="badge b-fe">core</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--amber)"></div><div class="row-info"><div class="row-title">Working with Data in React</div><div class="row-note">Fetch, React Query (TanStack Query) / SWR patterns, loading/error/stale states — data fetching architecture</div></div><div class="badge b-fe">core</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--amber)"></div><div class="row-info"><div class="row-title">Architecting React with Next.js (App Router)</div><div class="row-note">SSR, SSG, streaming, layouts, route handlers — current industry standard for production React apps</div></div><div class="badge b-fe">core</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--amber)"></div><div class="row-info"><div class="row-title">React 19: Server Component Fundamentals + What's New</div><div class="row-note">Server/client boundary, server actions, use() hook — direction the entire ecosystem is heading</div></div><div class="badge b-fe">core</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--amber)"></div><div class="row-info"><div class="row-title">Secure Coding in React</div><div class="row-note">XSS via dangerouslySetInnerHTML, CSP, dependency auditing — pairs with Phase 7 security work</div></div><div class="badge b-fe">core</div></div>
+        <div class="row skip"><div class="row-dot" style="background:#555"></div><div class="row-info"><div class="row-title">Styling in React, Vite, React 18 Debugging Playbook, Testing in React, Working with Components, all CODE LABs</div><div class="row-note">Styling is taste. Debugging and testing: learn by doing not watching. CODE LABs duplicate course content.</div></div><div class="badge b-skip">skip</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /main -->
+
+<div class="footer">
+  Distributed .NET Engineer Roadmap · v4.0 · 2025 · Built with intent, not templates
+</div>
+
+<script>
+function tog(header) {
+  const body = header.nextElementSibling;
+  const chev = header.querySelector('.phase-chev');
+  const isOpen = body.classList.toggle('open');
+  chev.classList.toggle('open', isOpen);
+  chev.textContent = isOpen ? '▲' : '▼';
+}
+// All phases start collapsed except phase 1 and DSA track
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.phase-body').forEach(b => {
+    const chev = b.previousElementSibling.querySelector('.phase-chev');
+    if (!b.classList.contains('open')) {
+      chev.textContent = '▼';
+      chev.classList.remove('open');
+    } else {
+      chev.textContent = '▲';
+      chev.classList.add('open');
+    }
+  });
+});
+</script>
+</body>
+</html>

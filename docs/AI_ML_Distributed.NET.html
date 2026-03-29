@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Reading Stack — AI/ML & Distributed .NET</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700&family=DM+Mono:wght@400;500&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0a0f;
+  --surface: #111118;
+  --surface2: #18181f;
+  --surface3: #1e1e28;
+  --border: rgba(255,255,255,0.07);
+  --border2: rgba(255,255,255,0.12);
+  --text: #e8e8f0;
+  --muted: #6e6e85;
+  --muted2: #9898b0;
+  --accent: #7c6ff7;
+  --accent2: #a594f9;
+  --green: #34d39a;
+  --green-dim: rgba(52,211,154,0.12);
+  --amber: #f4a94e;
+  --amber-dim: rgba(244,169,78,0.12);
+  --coral: #f06b6b;
+  --coral-dim: rgba(240,107,107,0.12);
+  --pink: #e879a0;
+  --pink-dim: rgba(232,121,160,0.12);
+  --blue: #5ba8f5;
+  --blue-dim: rgba(91,168,245,0.12);
+  --teal: #38bdf8;
+  --teal-dim: rgba(56,189,248,0.12);
+  --orange: #fb923c;
+  --orange-dim: rgba(251,146,60,0.12);
+  --gray-dim: rgba(150,150,170,0.1);
+  --radius: 10px;
+  --radius-sm: 6px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  font-size: 14px;
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+/* ── HEADER ── */
+.header {
+  padding: 56px 40px 40px;
+  border-bottom: 1px solid var(--border);
+  background: linear-gradient(135deg, rgba(124,111,247,0.05) 0%, rgba(52,211,154,0.03) 50%, transparent 100%);
+}
+.header-inner { max-width: 1100px; margin: 0 auto; }
+.header-eyebrow {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--accent2);
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+.header h1 {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(28px, 4vw, 46px);
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.15;
+  margin-bottom: 12px;
+  letter-spacing: -.02em;
+}
+.header-sub {
+  color: var(--muted2);
+  font-size: 15px;
+  max-width: 680px;
+  line-height: 1.6;
+}
+
+/* ── LEGEND / PILLS ── */
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 16px 40px;
+  border-bottom: 1px solid var(--border);
+  max-width: 1180px;
+  margin: 0 auto;
+  align-items: center;
+}
+.legend-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  margin-right: 4px;
+}
+.pill {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  font-weight: 500;
+  padding: 3px 10px;
+  border-radius: 20px;
+  letter-spacing: .04em;
+  cursor: default;
+  border: 1px solid transparent;
+  white-space: nowrap;
+}
+/* Style pills */
+.pill-narrative { background: rgba(124,111,247,.15); color: var(--accent2); border-color: rgba(124,111,247,.3); }
+.pill-hands     { background: var(--amber-dim); color: var(--amber); border-color: rgba(244,169,78,.3); }
+.pill-reference { background: var(--coral-dim); color: var(--coral); border-color: rgba(240,107,107,.3); }
+.pill-short     { background: var(--green-dim); color: var(--green); border-color: rgba(52,211,154,.3); }
+/* Path pills */
+.pill-aiml  { background: var(--teal-dim); color: var(--teal); border-color: rgba(56,189,248,.25); }
+.pill-dotnet { background: var(--pink-dim); color: var(--pink); border-color: rgba(232,121,160,.25); }
+.pill-both  { background: var(--orange-dim); color: var(--orange); border-color: rgba(251,146,60,.25); }
+/* Free pill */
+.pill-free { background: var(--gray-dim); color: var(--muted2); border-color: rgba(150,150,170,.2); }
+/* In-roadmap marker */
+.pill-inmap { background: rgba(52,211,154,.08); color: #5a9e7a; border-color: rgba(52,211,154,.15); font-size: 9px; }
+
+/* ── LAYOUT ── */
+.main { max-width: 1100px; margin: 0 auto; padding: 32px 40px 80px; }
+
+/* ── SECTION HEADING ── */
+.section-heading {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: .12em;
+  color: var(--muted);
+  margin: 32px 0 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.section-heading::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+/* ── BOOK GRID ── */
+.book-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 12px;
+}
+@media (max-width: 700px) { .book-grid { grid-template-columns: 1fr; } }
+
+/* ── BOOK CARD ── */
+.book-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px 18px;
+  transition: border-color .2s, background .15s;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.book-card:hover {
+  border-color: var(--border2);
+  background: var(--surface2);
+}
+
+.book-card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+}
+.book-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.book-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+  line-height: 1.35;
+  margin-bottom: 2px;
+}
+.book-author {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--muted);
+  letter-spacing: .04em;
+  margin-bottom: 4px;
+}
+.book-desc {
+  font-size: 12px;
+  color: var(--muted2);
+  line-height: 1.55;
+}
+.book-when {
+  font-size: 11px;
+  color: var(--muted);
+  border-top: 1px solid var(--border);
+  padding-top: 7px;
+  margin-top: 2px;
+  line-height: 1.45;
+}
+.book-when strong {
+  font-weight: 500;
+  color: var(--muted2);
+}
+
+/* ── CALLOUT ── */
+.callout {
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  margin: 0 0 14px;
+  font-size: 12px;
+  line-height: 1.55;
+  border-left: 3px solid;
+}
+.callout-purple { background: rgba(124,111,247,.08); border-color: var(--accent); color: #c4bcff; }
+.callout-teal   { background: var(--teal-dim);   border-color: var(--teal);   color: #a5f3fc; }
+.callout-amber  { background: var(--amber-dim);  border-color: var(--amber);  color: #fcd09a; }
+.callout-green  { background: var(--green-dim);  border-color: var(--green);  color: #86efca; }
+.callout-pink   { background: var(--pink-dim);   border-color: var(--pink);   color: #f0abca; }
+.callout strong { font-weight: 600; color: inherit; }
+
+/* ── PRIORITY BADGE on card ── */
+.priority-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-top: 4px;
+}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--surface2); border-radius: 3px; }
+
+/* ── FOOTER ── */
+.footer {
+  text-align: center;
+  padding: 32px 40px;
+  border-top: 1px solid var(--border);
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--muted);
+}
+
+/* ── SUMMARY BAR ── */
+.summary-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 14px 0 4px;
+  margin-bottom: 4px;
+}
+.summary-stat {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--muted2);
+}
+.summary-stat span {
+  font-size: 18px;
+  font-weight: 700;
+  font-family: 'Syne', sans-serif;
+  color: #fff;
+  display: block;
+  line-height: 1.2;
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-inner">
+    <div class="header-eyebrow">// The Reading Stack · v1.0 · 2026</div>
+    <h1>Books: AI/ML & Distributed .NET<br>Consolidated Library</h1>
+    <p class="header-sub">Every book for both paths — narrative, hands-on, reference, and short-form — in one place. Sequenced by when to read, annotated with why it earns its spot.</p>
+  </div>
+</div>
+
+<div class="legend" style="padding:16px 40px">
+  <span class="legend-label">Style</span>
+  <span class="pill pill-narrative">Narrative / intuition-first</span>
+  <span class="pill pill-hands">Hands-on / project-driven</span>
+  <span class="pill pill-reference">Reference depth</span>
+  <span class="pill pill-short">Short read &lt; 50 pages</span>
+  <span style="width:1px;background:var(--border);height:16px;margin:0 4px"></span>
+  <span class="legend-label">Path</span>
+  <span class="pill pill-aiml">AI / ML</span>
+  <span class="pill pill-dotnet">.NET Distributed</span>
+  <span class="pill pill-both">Both paths</span>
+  <span style="width:1px;background:var(--border);height:16px;margin:0 4px"></span>
+  <span class="pill pill-free">Free online</span>
+  <span class="pill pill-inmap">★ in roadmap</span>
+</div>
+
+<div class="main">
+
+<div class="summary-bar">
+  <div class="summary-stat"><span>28</span>total books</div>
+  <div class="summary-stat"><span>10</span>AI / ML path</div>
+  <div class="summary-stat"><span>12</span>.NET Distributed path</div>
+  <div class="summary-stat"><span>6</span>both paths / universal</div>
+  <div class="summary-stat"><span>9</span>free online</div>
+</div>
+
+<!-- ══════════════════════════
+     SECTION 1 — MATH & FOUNDATIONS
+══════════════════════════ -->
+<div class="section-heading">Mathematics & foundations — read from day 1</div>
+<div class="callout callout-teal">Every resource here was chosen because it tells a story, not because it's comprehensive. You loved Velleman because he made logic feel like detective work. These authors do the same thing for math.</div>
+
+<div class="book-grid">
+
+  <div class="book-card">
+    <div class="book-card-top">
+      <div style="display:flex;align-items:flex-start;gap:8px">
+        <div class="priority-dot" style="background:var(--teal)"></div>
+        <div>
+          <div class="book-title">How to Prove It</div>
+          <div class="book-author">Daniel J. Velleman · 3rd ed</div>
+        </div>
+      </div>
+      <div class="book-pills">
+        <span class="pill pill-narrative">narrative</span>
+        <span class="pill pill-both">both</span>
+        <span class="pill pill-inmap">★ roadmap</span>
+      </div>
+    </div>
+    <div class="book-desc">You already know you love this one. The book you mentioned — included for completeness and because it's the reference point for how all the other math books here were selected. Logical thinking, proof structure, set theory. Finish it.</div>
+    <div class="book-when"><strong>When:</strong> Already started — keep going. The logical precision transfers directly to algorithm analysis and ML paper reading.</div>
+  </div>
+
+  <div class="book-card">
+    <div class="book-card-top">
+      <div style="display:flex;align-items:flex-start;gap:8px">
+        <div class="priority-dot" style="background:var(--teal)"></div>
+        <div>
+          <div class="book-title">The Matrix Calculus You Need for Deep Learning</div>
+          <div class="book-author">Parr & Howard · free PDF · ~33 pages</div>
+        </div>
+      </div>
+      <div class="book-pills">
+        <span class="pill pill-short">short read</span>
+        <span class="pill pill-narrative">narrative</span>
+        <span class="pill pill-aiml">AI / ML</span>
+        <span class="pill pill-free">free</span>
+        <span class="pill pill-inmap">★ roadmap</span>
+      </div>
+    </div>
+    <div class="book-desc">Jeremy Howard (fast.ai) co-wrote this. 33 pages that sound like a tutor talking to you over coffee. Bridges "I understand derivatives" to "I can read a backpropagation derivation." The best math short-read that exists for ML practitioners.</div>
+    <div class="book-when"><strong>When:</strong> Before Phase 4 (Deep Learning). One sitting, one afternoon. arxiv.org/abs/1802.01528</div>
+  </div>
+
+  <div class="book-card">
+    <div class="book-card-top">
+      <div style="display:flex;align-items:flex-start;gap:8px">
+        <div class="priority-dot" style="background:var(--teal)"></div>
+        <div>
+          <div class="book-title">Statistics (4th ed)</div>
+          <div class="book-author">Freedman, Pisani & Purves</div>
+        </div>
+      </div>
+      <div class="book-pills">
+        <span class="pill pill-narrative">narrative</span>
+        <span class="pill pill-aiml">AI / ML</span>
+      </div>
+    </div>
+    <div class="book-desc">The antidote to every dry stats textbook. Freedman writes like he's telling you a story about what went wrong when people didn't understand probability. Real data, real studies, real consequences of bad statistical thinking. You'll read chapters because they're interesting, not because you have to.</div>
+    <div class="book-when"><strong>When:</strong> During Phase 1 (Classical ML), alongside StatQuest. Not a cover-to-cover read — chapters 1–10 are the core.</div>
+  </div>
+
+  <div class="book-card">
+    <div class="book-card-top">
+      <div style="display:flex;align-items:flex-start;gap:8px">
+        <div class="priority-dot" style="background:var(--teal)"></div>
+        <div>
+          <div class="book-title">Mathematics for Machine Learning</div>
+          <div class="book-author">Deisenroth, Faisal & Ong · free online</div>
+        </div>
+      </div>
+      <div class="book-pills">
+        <span class="pill pill-narrative">narrative</span>
+        <span class="pill pill-reference">reference</span>
+        <span class="pill pill-aiml">AI / ML</span>
+        <span class="pill pill-free">free</span>
+      </div>
+    </div>
+    <div class="book-desc">Free at mml-book.github.io. The authors are unusually good at motivating each piece of math with "here is why ML needs this." Linear algebra, probability, optimisation, and PCA all covered with ML as the north star. More rigorous than 3B1B but less dry than any university textbook.</div>
+    <div class="book-when"><strong>When:</strong> After completing the 3B1B video series. Use as the upgrade from visual intuition to mathematical fluency. Read alongside Phase 1–2.</div>
+  </div>
+
+</div>
+
+<!-- ══════════════════════════
+     SECTION 2 — AI/ML: CLASSICAL ML & DATA
+══════════════════════════ -->
+<div class="section-heading">AI / ML path — classical ML, data, and engineering</div>
+
+<div class="book-grid">
+
+  <div class="book-card">
+    <div class="book-card-top">
+      <div style="display:flex;align-items:flex-start;gap:8px">
+        <div class="priority-dot" style="background:var(--accent)"></div>
+        <div>
+          <div class="book-title">Hands-On Machine Learning with Scikit-Learn, Keras & TensorFlow (3rd ed)</div>
+          <div class="book-author">Aurélien Géron · O'Reilly</div>
+        </div>
+      </div>
+      <div class="book-pills">
+        <span class="pill pill-hands">hands-on</span>
+        <span class="pill pill-narrative">narrative</span>
+        <span class="pill pill-aiml">AI / ML</span>
+        <span class="pill pill-inmap">★ roadmap</span>
+      </div>
+    </div>
+    <div class="book-desc">The closest thing to a perfect ML book. Géron writes like an engineer explaining to an engineer — not a professor explaining to a student. Every concept has code. Every chapter builds something real. Chapters 1–8 cover classical ML. Chapters 9–18 cover deep learning. Together they are one of the best investments in this entire library.</div>
+    <div class="book-when"><strong>When:</strong> Chapters 1–8 during Phase 1 (Classical ML). Chapters 9–14 during Phase 4 (Deep Learning). Chapters 15–18 during Phase 6 (NLP).</div>
+  </div>
+
+  <div class="book-card">
+    <div class="book-card-top">
+      <div style="display:flex;align-items:flex-start;gap:8px">
+        <div class="priority-dot" style="background:var(--accent)"></div>
+        <div>
+          <div class="book-title">Feature Engineering for Machine Learning</div>
+          <div class="book-author">Alice Zheng & Amanda Casari · O'Reilly</div>
+        </div>
+      </div>
+      <div class="book-pills">
+        <span class="pill pill-hands">hands-on</span>
+        <span class="pill pill-aiml">AI / ML</span>
+        <span class="pill pill-inmap">★ roadmap</span>
+      </div>
+    </div>
+    <div class="book-desc">The most underrated ML book in existence. Feature engineering is where models win or lose in production — not in model architecture. Covers numeric, text, and categorical features; interaction terms; feature crosses; target encoding. Practical, not academic. Every chapter has code.</div>
+    <div class="book-when"><strong>When:</strong> After the scikit-learn Pluralsight path, before moving to deep learning. The skills compound across every phase that follows.</div>
+  </div>
+
+  <div class="book-card">
+    <div class="book-card-top">
+      <div style="display:flex;align-items:flex-start;gap:8px">
+        <div class="priority-dot" style="background:var(--accent)"></div>
+        <div>
+          <div class="book-title">Python for Data Analysis (3rd ed)</div>
+          <div class="book-author">Wes McKinney · O'Reilly · free online</div>
+        </div>
+      </div>
+      <div class="book-pills">
+        <span class="pill pill-hands">hands-on</span>
+        <span class="pill pill-aiml">AI / ML</span>
+        <span class="pill pill-free">free</span>
+        <span class="pill pill-inmap">★ roadmap</span>
+      </div>
+    </div>
+    <div class="book-desc">Wes built pandas. The book reads like a lead developer walking you through the library they designed, explaining why decisions were made. Free at wesmckinney.com — always up to date. Not a reference manual, a guided tour. Chapters 10 (Aggregation) and 11 (Time Series) are the most underused.</div>
+    <div class="book-when"><strong>When:</strong> During Phase 2 (Python Data Stack). Use alongside Pluralsight, not instead of it — they complement.</div>
+  </div>
+
+  <div class="book-card">
+    <div class="book-card-top">
+      <div style="display:flex;align-items:flex-start;gap:8px">
+        <div class="priority-dot" style="background:var(--green)"></div>
+        <div>
+          <div class="book-title">Designing Machine Learning Systems</div>
+          <div class="book-author">Chip Huyen · O'Reilly</div>
+        </div>
+      </div>
+      <div class="book-pills">
+        <span class="pill pill-narrative">narrative</span>
+        <span class="pill pill-aiml">AI / ML</span>
+        <span class="pill pill-inmap">★ roadmap</span>
+      </div>
+    </div>
+    <div class="book-desc">The single most important book on this list for reaching Senior ML Engineer. Chip spent years at NVIDIA and writes with an engineer's instinct for what actually breaks in production. Data pipelines, feature stores, training strategies, deployment patterns, monitoring, feedback loops. Not a textbook — it reads like a senior colleague thinking out loud.</div>
+    <div class="book-when"><strong>When:</strong> First read at Phase 3 (ML Engineering). Second read at Phase 9 (System Design). You will get different things out of it each time.</div>
+  </div>
+
+  <div class="book-card">
+    <div class="book-card-top">
+      <div style="display:flex;align-items:flex-start;gap:8px">
+        <div class="priority-dot" style="background:var(--green)"></div>
+        <div>
+          <div class="book-title">Machine Learning System Design Interview</div>
+          <div class="book-author">Ali Aminian & Alex Xu</div>
+        </div>
+      </div>
+      <div class="book-pills">
+        <span class="pill pill-hands">hands-on</span>
+        <span class="pill pill-aiml">AI / ML</span>
+        <span class="pill pill-inmap">★ roadmap</span>
+      </div>
+    </div>
+    <div class="book-desc">Same author as System Design Interview vols 1 & 2 — same formula, same quality. Each chapter is a worked problem: recommendation system, search ranking, ad CTR prediction, fraud detection, harmful content detection, entity linking. Practice answering each one out loud before reading the solution.</div>
+    <div class="book-when"><strong>When:</strong> Phase 9 (ML System Design Capstone). Read after Chip Huyen — it's the interview-prep companion to her engineering depth.</div>
+  </div>
+
+  <div class="book-card">
+    <div class="book-card-top">
+      <div style="display:flex;align-items:flex-start;gap:8px">
+        <div class="priority-dot" style="background:var(--green)"></div>
+        <div>
+          <div class="book-title">Deep Learning</div>
+          <div class="book-author">Goodfellow, Bengio & Courville · free online</div>
+        </div>
+      </div>
+      <div class="book-pills">
+        <span class="pill pill-reference">reference</span>
+        <span class="pill pill-aiml">AI / ML</span>
+        <span class="pill pill-free">free</span>
+      </div>
+    </div>
+    <div class="book-desc">The authoritative deep learning textbook. Free at deeplearningbook.org. Not a book to read cover-to-cover — a book to reach for when you need the actual mathematics behind a concept the courses glossed over. Part I (Chapters 2–5) covers the math foundations extremely well. Part II (Chapters 6–12) is the deep learning reference.</div>
+    <div class="book-when"><strong>When:</strong> Use as a reference from Phase 4 onward. When a Pluralsight video leaves you wanting more rigour, this is where you go. Don't front-load it.</div>
+  </div>
+
+  <div class="book-card">
+    <div class="book-card-top">
+      <div style="display:flex;align-items:flex-start;gap:8px">
+        <div class="priority-dot" style="background:var(--green)"></div>
+        <div>
+          <div class="book-title">Reinforcement Learning: An Introduction (2nd ed)</div>
+          <div class="book-author">Sutton & Barto · free online</div>
+        </div>
+      </div>
+      <div class="book-pills">
+        <span class="pill pill-narrative">narrative</span>
+        <span class="pill pill-reference">reference</span>
+        <span class="pill pill-aiml">AI / ML</span>
+        <span class="pill pill-free">free</span>
+        <span class="pill pill-inmap">★ roadmap</span>
+      </div>
+    </div>
+    <div class="book-desc">The bible of RL. Free at incompleteideas.net. Sutton has a gift for making the probabilistic reasoning feel logical and intuitive — closer to Velleman's spirit than a typical CS textbook. Chapters 3–6 (MDPs, Dynamic Programming, Monte Carlo, TD) are the essential core. Use as a reference alongside the Pluralsight RL path.</div>
+    <div class="book-when"><strong>When:</strong> Phase 8 (Reinforcement Learning). Don't try to read it through — use it chapter-by-chapter alongside each Pluralsight course module.</div>
+  </div>
+
+  <div class="book-card">
+    <div class="book-card-top">
+      <div style="display:flex;align-items:flex-start;gap:8px">
+        <div class="priority-dot" style="background:var(--amber)"></div>
+        <div>
+          <div class="book-title">Build a Large Language Model (From Scratch)</div>
+          <div class="book-author">Sebastian Raschka · Manning</div>
+        </div>
+      </div>
+      <div class="book-pills">
+        <span class="pill pill-hands">hands-on</span>
+        <span class="pill pill-narrative">narrative</span>
+        <span class="pill pill-aiml">AI / ML</span>
+      </div>
+    </div>
+    <div class="book-desc">The most practical LLM book written so far. Raschka builds a GPT-style model from scratch — tokeniser, attention, pre-training, fine-tuning — and explains every decision as he goes. The tone is conversational. The code is clean PyTorch. If Karpathy's "Let's build GPT" videos are the lecture, this is the textbook. It doesn't assume you've done this before.</div>
+    <div class="book-when"><strong>When:</strong> After Phase 5 (PyTorch) and during Phase 6 (NLP/LLMs). Pairs with the Karpathy YouTube series — together they are the best LLM fundamentals available.</div>
+  </div>
+
+  <div class="book-card">
+    <div class="book-card-top">
+      <div style="display:flex;align-items:flex-start;gap:8px">
+        <div class="priority-dot" style="background:var(--amber)"></div>
+        <div>
+          <div class="book-title">Fundamentals of Data Engineering</div>
+          <div class="book-author">Joe Reis & Matt Housley · O'Reilly</div>
+        </div>
+      </div>
+      <div class="book-pills">
+        <span class="pill pill-narrative">narrative</span>
+        <span class="pill pill-aiml">AI / ML</span>
+      </div>
+    </div>
+    <div class="book-desc">ML systems are only as good as the data pipelines feeding them. This book covers the full data engineering lifecycle — source systems, ingestion, storage, transformation, serving — with a systems thinking lens. Written for practitioners, not academics. Fills the gap that most ML courses ignore: where does the data actually come from, and how do you make it reliable?</div>
+    <div class="book-when"><strong>When:</strong> Phase 3 (ML Engineering). Read Chapters 1–6 alongside the data engineering Pluralsight courses.</div>
+  </div>
+
+  <div class="book-card">
+    <div class="book-card-top">
+      <div style="display:flex;align-items:flex-start;gap:8px">
+        <div class="priority-dot" style="background:var(--amber)"></div>
+        <div>
+          <div class="book-title">Trustworthy Online Controlled Experiments</div>
+          <div class="book-author">Kohavi, Tang & Xu · Cambridge</div>
+        </div>
+      </div>
+      <div class="book-pills">
+        <span class="pill pill-narrative">narrative</span>
+        <span class="pill pill-reference">reference</span>
+        <span class="pill pill-aiml">AI / ML</span>
+        <span class="pill pill-inmap">★ roadmap</span>
+      </div>
+    </div>
+    <div class="book-desc">Ronny Kohavi ran A/B testing at Microsoft and Airbnb and wrote the definitive book on online experimentation. You cannot make credible production ML decisions without understanding how to run valid experiments — this book tells you everything that goes wrong (and why) before you ask the question "did this model improvement actually work in production?"</div>
+    <div class="book-when"><strong>When:</strong> Phase 9 (ML System Design). Chapters 1–5 are sufficient for senior-level interview discussions.</div>
+  </div>
+
+</div>
+
+<!-- ══════════════════════════
+     SECTION 3 — .NET DISTRIBUTED PATH
+══════════════════════════ -->
+<div class="section-heading">.NET Distributed path — C#, async, distributed systems</div>
+<div class="callout callout-pink">These books are either narrative-first or built around working code. None of them read like documentation. The async/concurrency books in particular were chosen because they match the depth of AsyncExpert.com — they complement, not duplicate.</div>
+
+<div class="book-grid">
+
+  <div class="book-card">
+    <div class="book-card-top">
+      <div style="display:flex;align-items:flex-start;gap:8px">
+        <div class="priority-dot" style="background:var(--pink)"></div>
+        <div>
+          <div class="book-title">Concurrency in C# Cookbook (2nd ed)</div>
+          <div class="book-author">Stephen Cleary · O'Reilly</div>
+        </div>
+      </div>
+      <div class="book-pills">
+        <span class="pill pill-hands">hands-on</span>
+        <span class="pill pill-reference">reference</span>
+        <span class="pill pill-dotnet">.NET</span>
+        <span class="pill pill-inmap">★ roadmap</span>
+      </div>
+    </div>
+    <div class="book-desc">Cleary is a mentor in AsyncExpert.com and the highest-signal async voice in the .NET ecosystem. The cookbook format means you find a problem, read the solution, understand the why. Covers async streams, cancellation, dataflow, testing async code. Indispensable reference for production C# async work.</div>
+    <div class="book-when"><strong>When:</strong> During AsyncExpert weeks 6–10. Keep on desk permanently after that.</div>
+  </div>
+
+  <div class="book-card">
+    <div class="book-card-top">
+      <div style="display:flex;align-items:flex-start;gap:8px">
+        <div class="priority-dot" style="background:var(--pink)"></div>
+        <div>
+          <div class="book-title">C# in Depth (4th ed)</div>
+          <div class="book-author">Jon Skeet · Manning</div>
+        </div>
+      </div>
+      <div class="book-pills">
+        <span class="pill pill-narrative">narrative</span>
+        <span class="pill pill-reference">reference</span>
+        <span class="pill pill-dotnet">.NET</span>
+        <span class="pill pill-inmap">★ roadmap</span>
+      </div>
+    </div>
+    <div class="book-desc">Jon Skeet is the highest-reputation user on Stack Overflow by a factor of three. He writes with rare clarity — explaining not just what C# does but why the language evolved the way it did. Nullable reference types, async/await internals, LINQ expression trees, pattern matching. Every feature explained at the language design level.</div>
+    <div class="book-when"><strong>When:</strong> Phase 1 (.NET Foundation). Read Chapters 4–9 covering async and LINQ internals alongside AsyncExpert.</div>
+  </div>
+
+  <div class="book-card">
+    <div class="book-card-top">
+      <div style="display:flex;align-items:flex-start;gap:8px">
+        <div class="priority-dot" style="background:var(--pink)"></div>
+        <div>
+          <div class="book-title">Pro .NET Memory Management</div>
+          <div class="book-author">Konrad Kokosa · Apress</div>
+        </div>
+      </div>
+      <div class="book-pills">
+        <span class="pill pill-reference">reference</span>
+        <span class="pill pill-narrative">narrative</span>
+        <span class="pill pill-dotnet">.NET</span>
+        <span class="pill pill-inmap">★ roadmap</span>
+      </div>
+    </div>
+    <div class="book-desc">The definitive deep-dive into .NET GC internals. Kokosa explains allocations, heap generations, finalisation, large object heap, and Span&lt;T&gt; as a zero-allocation tool. Reads more like an investigation than a reference — he shows you what to measure, why it matters, and what to do about it. Heavy book, high-value chapters.</div>
+    <div class="book-when"><strong>When:</strong> Phase 1 (.NET Foundation). Focus on Parts I–III. Parts IV–V as reference when profiling real applications.</div>
+  </div>
+
+  <div class="book-card">
+    <div class="book-card-top">
+      <div style="display:flex;align-items:flex-start;gap:8px">
+        <div class="priority-dot" style="background:var(--pink)"></div>
+        <div>
+          <div class="book-title">Designing Distributed Systems</div>
+          <div class="book-author">Brendan Burns · O'Reilly · free online</div>
+        </div>
+      </div>
+      <div class="book-pills">
+        <span class="pill pill-narrative">narrative</span>
+        <span class="pill pill-hands">hands-on</span>
+        <span class="pill pill-dotnet">.NET</span>
+        <span class="pill pill-free">free</span>
+      </div>
+    </div>
+    <div class="book-desc">Brendan Burns co-created Kubernetes and writes about distributed patterns with the clarity of someone who built the systems being discussed. Covers sidecar, ambassador, adapter patterns, then replica sets, scatter-gather, and function composition. Short chapters, container-oriented, immediately practical. Free via Microsoft Azure downloads.</div>
+    <div class="book-when"><strong>When:</strong> Phase 4 (Microservices). Read before diving into specific Dapr or service mesh courses — this builds the pattern vocabulary.</div>
+  </div>
+
+  <div class="book-card">
+    <div class="book-card-top">
+      <div style="display:flex;align-items:flex-start;gap:8px">
+        <div class="priority-dot" style="background:var(--pink)"></div>
+        <div>
+          <div class="book-title">Microservices Patterns</div>
+          <div class="book-author">Chris Richardson · Manning</div>
+        </div>
+      </div>
+      <div class="book-pills">
+        <span class="pill pill-narrative">narrative</span>
+        <span class="pill pill-hands">hands-on</span>
+        <span class="pill pill-dotnet">.NET</span>
+        <span class="pill pill-inmap">★ roadmap</span>
+      </div>
+    </div>
+    <div class="book-desc">The narrative thread of a single application being decomposed and evolved runs through every chapter — you're not reading patterns in the abstract, you're watching them solve real problems. Saga, outbox, CQRS, API composition, service mesh. Richardson built the microservices.io pattern catalog and the book is the full-length explanation behind each entry.</div>
+    <div class="book-when"><strong>When:</strong> Phase 4 (Microservices). The best single book on this topic.</div>
+  </div>
+
+  <div class="book-card">
+    <div class="book-card-top">
+      <div style="display:flex;align-items:flex-start;gap:8px">
+        <div class="priority-dot" style="background:var(--pink)"></div>
+        <div>
+          <div class="book-title">Designing Data-Intensive Applications</div>
+          <div class="book-author">Martin Kleppmann · O'Reilly</div>
+        </div>
+      </div>
+      <div class="book-pills">
+        <span class="pill pill-narrative">narrative</span>
+        <span class="pill pill-reference">reference</span>
+        <span class="pill pill-dotnet">.NET</span>
+        <span class="pill pill-inmap">★ roadmap</span>
+      </div>
+    </div>
+    <div class="book-desc">The most important distributed systems book written in the last decade. Kleppmann explains replication, partitioning, transactions, consistency, and stream processing with the narrative instinct of a teacher who has watched people get these things wrong repeatedly. Dense, but never dry. The kind of book you re-read and find new things in.</div>
+    <div class="book-when"><strong>When:</strong> Phase 3 (Databases & Messaging). The foundation that makes everything in Phases 4–6 make deeper sense.</div>
+  </div>
+
+  <div class="book-card">
+    <div class="book-card-top">
+      <div style="display:flex;align-items:flex-start;gap:8px">
+        <div class="priority-dot" style="background:var(--pink)"></div>
+        <div>
+          <div class="book-title">Enterprise Integration Patterns</div>
+          <div class="book-author">Hohpe & Woolf · Addison-Wesley</div>
+        </div>
+      </div>
+      <div class="book-pills">
+        <span class="pill pill-reference">reference</span>
+        <span class="pill pill-narrative">narrative</span>
+        <span class="pill pill-dotnet">.NET</span>
+        <span class="pill pill-inmap">★ roadmap</span>
+      </div>
+    </div>
+    <div class="book-desc">The messaging patterns bible. Every pattern in MassTransit, NServiceBus, and Azure Service Bus has a name from this book. Gregor Hohpe has been writing about integration for 20+ years and the patterns haven't aged. Don't read it cover-to-cover — use enterpriseintegrationpatterns.com to identify which patterns you need, then read those chapters.</div>
+    <div class="book-when"><strong>When:</strong> Phase 3 (Messaging). Read the core patterns (Chapters 1–3 + whichever patterns you're implementing) before the Pluralsight messaging courses.</div>
+  </div>
+
+  <div class="book-card">
+    <div class="book-card-top">
+      <div style="display:flex;align-items:flex-start;gap:8px">
+        <div class="priority-dot" style="background:var(--pink)"></div>
+        <div>
+          <div class="book-title">Domain-Driven Design Distilled</div>
+          <div class="book-author">Vaughn Vernon · Addison-Wesley</div>
+        </div>
+      </div>
+      <div class="book-pills">
+        <span class="pill pill-narrative">narrative</span>
+        <span class="pill pill-dotnet">.NET</span>
+        <span class="pill pill-inmap">★ roadmap</span>
+      </div>
+    </div>
+    <div class="book-desc">The readable, practical DDD book. Vernon distilled the Evans "Blue Book" into the concepts that actually matter for practitioners: bounded contexts, aggregates, domain events, ubiquitous language. Skips the philosophy, keeps the engineering. Perfect companion to CQRS/ES courses.</div>
+    <div class="book-when"><strong>When:</strong> Phase 4 (Microservices/CQRS). Read before the EventStore and MediatR courses — the vocabulary makes those courses significantly more useful.</div>
+  </div>
+
+  <div class="book-card">
+    <div class="book-card-top">
+      <div style="display:flex;align-items:flex-start;gap:8px">
+        <div class="priority-dot" style="background:var(--pink)"></div>
+        <div>
+          <div class="book-title">System Design Interview (vols 1 & 2)</div>
+          <div class="book-author">Alex Xu · ByteByteGo</div>
+        </div>
+      </div>
+      <div class="book-pills">
+        <span class="pill pill-hands">hands-on</span>
+        <span class="pill pill-dotnet">.NET</span>
+        <span class="pill pill-inmap">★ roadmap</span>
+      </div>
+    </div>
+    <div class="book-desc">Highly visual, worked interview answers for two dozen system designs. Vol 1 covers URL shortener, notification system, web crawler, news feed, chat system, search autocomplete, YouTube. Vol 2 covers payment system, stock exchange, ad click aggregation, hotel/flight reservation, distributed email. Together with Grokking SDI, they cover the full interview space.</div>
+    <div class="book-when"><strong>When:</strong> System Design Track, starting Phase 4. Read one chapter per week alongside Grokking System Design.</div>
+  </div>
+
+  <div class="book-card">
+    <div class="book-card-top">
+      <div style="display:flex;align-items:flex-start;gap:8px">
+        <div class="priority-dot" style="background:var(--coral)"></div>
+        <div>
+          <div class="book-title">Database Internals</div>
+          <div class="book-author">Alex Petrov · O'Reilly</div>
+        </div>
+      </div>
+      <div class="book-pills">
+        <span class="pill pill-narrative">narrative</span>
+        <span class="pill pill-reference">reference</span>
+        <span class="pill pill-dotnet">.NET</span>
+      </div>
+    </div>
+    <div class="book-desc">Goes one level deeper than Kleppmann on storage engines and distributed consensus. B-Trees, LSM-Trees, write-ahead logs, leader election, Raft, Paxos. Not required for most senior roles, but if you want to understand why Postgres, Cassandra, and RocksDB make the storage decisions they do, this is where you find out. Petrov writes with clarity and obvious enthusiasm for the subject.</div>
+    <div class="book-when"><strong>When:</strong> After DDIA (Designing Data-Intensive Applications). Use Part I (Storage Engines) at Phase 3. Part II (Distributed Systems) is staff-level depth.</div>
+  </div>
+
+  <div class="book-card">
+    <div class="book-card-top">
+      <div style="display:flex;align-items:flex-start;gap:8px">
+        <div class="priority-dot" style="background:var(--coral)"></div>
+        <div>
+          <div class="book-title">The Art of Readable Code</div>
+          <div class="book-author">Boswell & Foucher · O'Reilly</div>
+        </div>
+      </div>
+      <div class="book-pills">
+        <span class="pill pill-narrative">narrative</span>
+        <span class="pill pill-hands">hands-on</span>
+        <span class="pill pill-dotnet">.NET</span>
+      </div>
+    </div>
+    <div class="book-desc">Short, entertaining, and surprisingly deep. The authors argue that code is written for humans first and computers second, then spend 200 pages proving it with real examples. Naming, comments, control flow, refactoring — each chapter is a standalone argument with before/after code. Reads in an afternoon. Earns its place because returning to serious coding after years of management means re-sharpening instincts, not just learning APIs.</div>
+    <div class="book-when"><strong>When:</strong> Phase 1 of the .NET path. One weekend read. The habits stick.</div>
+  </div>
+
+  <div class="book-card">
+    <div class="book-card-top">
+      <div style="display:flex;align-items:flex-start;gap:8px">
+        <div class="priority-dot" style="background:var(--coral)"></div>
+        <div>
+          <div class="book-title">Unit Testing: Principles, Practices, and Patterns</div>
+          <div class="book-author">Vladimir Khorikov · Manning</div>
+        </div>
+      </div>
+      <div class="book-pills">
+        <span class="pill pill-narrative">narrative</span>
+        <span class="pill pill-hands">hands-on</span>
+        <span class="pill pill-dotnet">.NET</span>
+      </div>
+    </div>
+    <div class="book-desc">The best testing book for .NET developers — and one of the best testing books full stop. Khorikov argues from first principles: what is a good test, what is a bad test, why most mock-heavy codebases are testing the wrong things. London vs Classic school. Observable behaviour vs implementation detail. The kind of book that changes how you write code, not just tests.</div>
+    <div class="book-when"><strong>When:</strong> Phase 2 (.NET APIs). Read alongside the testing Pluralsight content.</div>
+  </div>
+
+</div>
+
+<!-- ══════════════════════════
+     SECTION 4 — UNIVERSAL / BOTH PATHS
+══════════════════════════ -->
+<div class="section-heading">Universal — relevant to both paths</div>
+<div class="callout callout-green">These books don't fit neatly in either path because they transcend both. They're about how to think about complex systems, how to communicate technical decisions, and how to operate at senior level. Every engineer on both paths benefits from them.</div>
+
+<div class="book-grid">
+
+  <div class="book-card">
+    <div class="book-card-top">
+      <div style="display:flex;align-items:flex-start;gap:8px">
+        <div class="priority-dot" style="background:var(--orange)"></div>
+        <div>
+          <div class="book-title">A Philosophy of Software Design</div>
+          <div class="book-author">John Ousterhout · Yaknyam Press</div>
+        </div>
+      </div>
+      <div class="book-pills">
+        <span class="pill pill-narrative">narrative</span>
+        <span class="pill pill-both">both</span>
+      </div>
+    </div>
+    <div class="book-desc">John Ousterhout has been teaching software design at Stanford for decades and this is his distilled philosophy. The central argument is that complexity is the root of all software problems, and that the job of a good engineer is to fight it deliberately. Deep modules, information hiding, tactical vs strategic programming. Short, dense, and genuinely thought-provoking.</div>
+    <div class="book-when"><strong>When:</strong> Anytime. Read it early — it shapes how you approach design decisions in both paths.</div>
+  </div>
+
+  <div class="book-card">
+    <div class="book-card-top">
+      <div style="display:flex;align-items:flex-start;gap:8px">
+        <div class="priority-dot" style="background:var(--orange)"></div>
+        <div>
+          <div class="book-title">Staff Engineer: Leadership Beyond the Management Track</div>
+          <div class="book-author">Will Larson · Stripe Press</div>
+        </div>
+      </div>
+      <div class="book-pills">
+        <span class="pill pill-narrative">narrative</span>
+        <span class="pill pill-both">both</span>
+      </div>
+    </div>
+    <div class="book-desc">Given that the explicit goal is Senior/Staff-level engineering, this book is mandatory. Will Larson interviewed dozens of Staff engineers across the industry and distilled what the role actually requires. Technical vision, writing engineering docs, project selection, navigating org dynamics. The non-technical skills that separate Staff from Senior are rarely written about with this clarity.</div>
+    <div class="book-when"><strong>When:</strong> Anytime. Read early — it reframes what you're building toward. Free at staffeng.com.</div>
+  </div>
+
+  <div class="book-card">
+    <div class="book-card-top">
+      <div style="display:flex;align-items:flex-start;gap:8px">
+        <div class="priority-dot" style="background:var(--orange)"></div>
+        <div>
+          <div class="book-title">The Pragmatic Programmer (20th Anniversary Ed)</div>
+          <div class="book-author">Hunt & Thomas · Addison-Wesley</div>
+        </div>
+      </div>
+      <div class="book-pills">
+        <span class="pill pill-narrative">narrative</span>
+        <span class="pill pill-both">both</span>
+      </div>
+    </div>
+    <div class="book-desc">The pragmatist manifesto. Short named chapters (DRY, tracer bullets, broken windows, rubber duck debugging, design by contract) that read like wisdom distilled from decades of hard lessons. Not about any particular language or framework — about how to think and operate as a professional engineer. This is the kind of book you quote in code reviews.</div>
+    <div class="book-when"><strong>When:</strong> Early in either path. One chapter before bed works well — it's structured to be read non-linearly.</div>
+  </div>
+
+  <div class="book-card">
+    <div class="book-card-top">
+      <div style="display:flex;align-items:flex-start;gap:8px">
+        <div class="priority-dot" style="background:var(--orange)"></div>
+        <div>
+          <div class="book-title">Accelerate: The Science of Lean Software & DevOps</div>
+          <div class="book-author">Forsgren, Humble & Kim · IT Revolution</div>
+        </div>
+      </div>
+      <div class="book-pills">
+        <span class="pill pill-narrative">narrative</span>
+        <span class="pill pill-short">short read</span>
+        <span class="pill pill-both">both</span>
+      </div>
+    </div>
+    <div class="book-desc">The DORA research team spent four years studying what makes software teams high-performing and this book is their findings. Deployment frequency, lead time for changes, MTTR, change failure rate — these four metrics predict everything about organisational performance. Short, readable, evidence-based. Changes how you think about CI/CD, testing, and MLOps decisions.</div>
+    <div class="book-when"><strong>When:</strong> Phase 3 of either path. Read in two sittings. The core findings are in the first 80 pages.</div>
+  </div>
+
+  <div class="book-card">
+    <div class="book-card-top">
+      <div style="display:flex;align-items:flex-start;gap:8px">
+        <div class="priority-dot" style="background:var(--orange)"></div>
+        <div>
+          <div class="book-title">An Elegant Puzzle: Systems of Engineering Management</div>
+          <div class="book-author">Will Larson · Stripe Press</div>
+        </div>
+      </div>
+      <div class="book-pills">
+        <span class="pill pill-narrative">narrative</span>
+        <span class="pill pill-both">both</span>
+      </div>
+    </div>
+    <div class="book-desc">Given your managerial background, this one is included specifically for you. Larson writes about engineering management and IC leadership with the same systems-thinking lens he brings to Staff Engineer. Understanding how good engineering orgs work — how priorities are set, how technical debt is managed, how teams are staffed — makes you a more effective senior IC. Not a management book, a leadership book.</div>
+    <div class="book-when"><strong>When:</strong> Anytime. Your management years are an asset, not just a gap — this book helps you see why.</div>
+  </div>
+
+  <div class="book-card">
+    <div class="book-card-top">
+      <div style="display:flex;align-items:flex-start;gap:8px">
+        <div class="priority-dot" style="background:var(--orange)"></div>
+        <div>
+          <div class="book-title">Grokking Algorithms (2nd ed)</div>
+          <div class="book-author">Aditya Bhargava · Manning</div>
+        </div>
+      </div>
+      <div class="book-pills">
+        <span class="pill pill-narrative">narrative</span>
+        <span class="pill pill-hands">hands-on</span>
+        <span class="pill pill-both">both</span>
+      </div>
+    </div>
+    <div class="book-desc">The most visual, story-driven algorithms book ever written. Every algorithm is illustrated with hand-drawn diagrams. Binary search, recursion, hash tables, BFS, DFS, dynamic programming — all explained the way a good teacher would in a whiteboard session. This is the warm-up before NeetCode patterns and the DSA track, not a substitute for it. Also an excellent refresher on intuition when something in the course feels too abstract.</div>
+    <div class="book-when"><strong>When:</strong> Before or alongside the DSA track (both paths). Read it fast — it's short and visual. Then move to the pattern-focused resources.</div>
+  </div>
+
+</div>
+
+</div><!-- /main -->
+
+<div class="footer">
+  The Reading Stack · AI/ML & Distributed .NET · v1.0 · 2026 · 28 books. Every one earns its place.
+</div>
+
+</body>
+</html>

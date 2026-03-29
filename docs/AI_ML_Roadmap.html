@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Senior AI/ML Engineer — Master Roadmap</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700&family=DM+Mono:wght@400;500&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0a0f;
+  --surface: #111118;
+  --surface2: #18181f;
+  --border: rgba(255,255,255,0.07);
+  --border2: rgba(255,255,255,0.12);
+  --text: #e8e8f0;
+  --muted: #6e6e85;
+  --muted2: #9898b0;
+  --accent: #7c6ff7;
+  --accent2: #a594f9;
+  --green: #34d39a;
+  --green-dim: rgba(52,211,154,0.12);
+  --amber: #f4a94e;
+  --amber-dim: rgba(244,169,78,0.12);
+  --coral: #f06b6b;
+  --coral-dim: rgba(240,107,107,0.12);
+  --pink: #e879a0;
+  --pink-dim: rgba(232,121,160,0.12);
+  --blue: #5ba8f5;
+  --blue-dim: rgba(91,168,245,0.12);
+  --teal: #38bdf8;
+  --teal-dim: rgba(56,189,248,0.12);
+  --orange: #fb923c;
+  --orange-dim: rgba(251,146,60,0.12);
+  --gray-dim: rgba(150,150,170,0.1);
+  --radius: 10px;
+  --radius-sm: 6px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  font-size: 14px;
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+/* ── HEADER ── */
+.header {
+  padding: 56px 40px 40px;
+  border-bottom: 1px solid var(--border);
+  background: linear-gradient(180deg, rgba(52,211,154,0.04) 0%, rgba(124,111,247,0.04) 60%, transparent 100%);
+}
+.header-inner { max-width: 1100px; margin: 0 auto; }
+.header-eyebrow {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--green);
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+.header h1 {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(28px, 4vw, 46px);
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.15;
+  margin-bottom: 12px;
+  letter-spacing: -.02em;
+}
+.header-sub {
+  color: var(--muted2);
+  font-size: 15px;
+  max-width: 680px;
+  line-height: 1.6;
+}
+
+/* ── LEGEND ── */
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 20px 40px;
+  border-bottom: 1px solid var(--border);
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.legend-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  align-self: center;
+  margin-right: 4px;
+}
+.pill {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  font-weight: 500;
+  padding: 3px 10px;
+  border-radius: 20px;
+  letter-spacing: .04em;
+  cursor: default;
+  border: 1px solid transparent;
+}
+.pill-ps    { background: rgba(124,111,247,.15); color: var(--accent2); border-color: rgba(124,111,247,.25); }
+.pill-yt    { background: var(--coral-dim); color: var(--coral); border-color: rgba(240,107,107,.25); }
+.pill-book  { background: var(--green-dim); color: var(--green); border-color: rgba(52,211,154,.25); }
+.pill-free  { background: var(--gray-dim); color: var(--muted2); border-color: rgba(150,150,170,.2); }
+.pill-hf    { background: var(--amber-dim); color: var(--amber); border-color: rgba(244,169,78,.25); }
+.pill-fast  { background: var(--teal-dim); color: var(--teal); border-color: rgba(56,189,248,.25); }
+.pill-paper { background: var(--pink-dim); color: var(--pink); border-color: rgba(232,121,160,.25); }
+.pill-dg    { background: var(--pink-dim); color: var(--pink); border-color: rgba(232,121,160,.25); }
+.pill-blog  { background: var(--orange-dim); color: var(--orange); border-color: rgba(251,146,60,.25); }
+
+/* ── LAYOUT ── */
+.main { max-width: 1100px; margin: 0 auto; padding: 32px 40px 80px; }
+
+/* ── PARALLEL TRACKS GRID ── */
+.parallel-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+@media (max-width: 720px) { .parallel-grid { grid-template-columns: 1fr; } }
+
+/* ── PHASE CARD ── */
+.phase {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition: border-color .2s;
+}
+.phase:hover { border-color: var(--border2); }
+.phase + .phase { margin-top: 12px; }
+
+.phase-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 20px;
+  cursor: pointer;
+  user-select: none;
+  transition: background .15s;
+}
+.phase-header:hover { background: var(--surface2); }
+
+.phase-dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.phase-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  color: #fff;
+  flex: 1;
+  line-height: 1.3;
+}
+.phase-meta {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--muted);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.phase-chev {
+  font-size: 10px;
+  color: var(--muted);
+  flex-shrink: 0;
+}
+
+.phase-body { display: none; padding: 0 20px 18px; }
+.phase-body.open { display: block; }
+
+/* ── CALLOUT ── */
+.callout {
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  margin: 10px 0 12px;
+  font-size: 12px;
+  line-height: 1.55;
+  border-left: 3px solid;
+}
+.callout-purple { background: rgba(124,111,247,.08); border-color: var(--accent); color: #c4bcff; }
+.callout-green  { background: var(--green-dim);  border-color: var(--green);  color: #86efca; }
+.callout-amber  { background: var(--amber-dim);  border-color: var(--amber);  color: #fcd09a; }
+.callout-coral  { background: var(--coral-dim);  border-color: var(--coral);  color: #fca5a5; }
+.callout-pink   { background: var(--pink-dim);   border-color: var(--pink);   color: #f0abca; }
+.callout-blue   { background: var(--blue-dim);   border-color: var(--blue);   color: #93c5fd; }
+.callout-teal   { background: var(--teal-dim);   border-color: var(--teal);   color: #a5f3fc; }
+.callout-orange { background: var(--orange-dim); border-color: var(--orange); color: #fed7aa; }
+.callout strong { font-weight: 600; color: inherit; }
+
+/* ── TRACK ── */
+.track { margin-top: 14px; }
+.track-label {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-bottom: 6px;
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* ── COURSE ROW ── */
+.rows { display: flex; flex-direction: column; gap: 2px; }
+.row {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 8px 10px;
+  border-radius: var(--radius-sm);
+  transition: background .12s;
+  cursor: default;
+}
+.row:hover { background: var(--surface2); }
+.row-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  margin-top: 5px;
+  flex-shrink: 0;
+}
+.row-info { flex: 1; min-width: 0; }
+.row-title {
+  font-size: 13px;
+  color: var(--text);
+  line-height: 1.4;
+  font-weight: 500;
+}
+.row-note {
+  font-size: 11px;
+  color: var(--muted2);
+  margin-top: 2px;
+  line-height: 1.45;
+}
+.row.skip .row-title { text-decoration: line-through; opacity: .35; }
+.row.skip .row-note  { opacity: .3; }
+
+/* ── BADGES ── */
+.badge {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  font-weight: 500;
+  padding: 2px 8px;
+  border-radius: 20px;
+  flex-shrink: 0;
+  margin-top: 3px;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  border: 1px solid transparent;
+}
+.b-core     { background: rgba(124,111,247,.15); color: var(--accent2); border-color: rgba(124,111,247,.3); }
+.b-advanced { background: var(--green-dim); color: var(--green); border-color: rgba(52,211,154,.3); }
+.b-math     { background: var(--teal-dim); color: var(--teal); border-color: rgba(56,189,248,.3); }
+.b-gap      { background: var(--amber-dim); color: var(--amber); border-color: rgba(244,169,78,.3); }
+.b-sys      { background: var(--coral-dim); color: var(--coral); border-color: rgba(240,107,107,.3); }
+.b-skip     { background: var(--gray-dim); color: var(--muted); border-color: rgba(150,150,170,.15); }
+
+/* ── DIVIDER ── */
+.divider { height: 1px; background: var(--border); margin: 14px 0 10px; }
+
+/* ── SECTION HEADING ── */
+.section-heading {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: .12em;
+  color: var(--muted);
+  margin: 28px 0 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.section-heading::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+/* ── PARALLEL NOTE ── */
+.par-note {
+  display: flex;
+  gap: 10px;
+  padding: 9px 12px;
+  background: rgba(124,111,247,.06);
+  border: 1px dashed rgba(124,111,247,.25);
+  border-radius: var(--radius-sm);
+  margin-top: 12px;
+  font-size: 11px;
+  color: #c4bcff;
+  line-height: 1.5;
+}
+.par-note strong { font-weight: 600; color: var(--accent2); }
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--surface2); border-radius: 3px; }
+
+/* ── FOOTER ── */
+.footer {
+  text-align: center;
+  padding: 32px 40px;
+  border-top: 1px solid var(--border);
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--muted);
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-inner">
+    <div class="header-eyebrow">// Lifelong Learning Roadmap — v1.0 · 2026</div>
+    <h1>Senior AI / ML Engineer<br>Full-Stack Path</h1>
+    <p class="header-sub">A sequenced, opinionated path from mathematical foundations through production ML systems, deep learning, LLMs, and agentic AI. Every course justified. Every gap identified. Math made human — no dry textbooks.</p>
+  </div>
+</div>
+
+<div class="legend" style="padding:16px 40px">
+  <span class="legend-label">Platforms</span>
+  <span class="pill pill-ps">Pluralsight</span>
+  <span class="pill pill-fast">fast.ai</span>
+  <span class="pill pill-hf">HuggingFace</span>
+  <span class="pill pill-yt">YouTube / Free</span>
+  <span class="pill pill-book">Books</span>
+  <span class="pill pill-blog">Blogs / Articles</span>
+  <span class="pill pill-paper">Papers</span>
+  <span class="pill pill-dg">DesignGurus</span>
+  <span class="pill pill-free">Free / OSS</span>
+</div>
+
+<div class="main">
+
+<!-- ══════════════════════════════════════════
+     PARALLEL TRACKS
+══════════════════════════════════════════ -->
+<div class="section-heading">Parallel tracks — run from day 1</div>
+<div class="parallel-grid">
+
+  <!-- MATH TRACK -->
+  <div class="phase">
+    <div class="phase-header" onclick="tog(this)">
+      <div class="phase-dot" style="background:var(--teal)"></div>
+      <div class="phase-title">Math Track — runs throughout all phases</div>
+      <div class="phase-meta">30–45 min/day</div>
+      <div class="phase-chev open">▲</div>
+    </div>
+    <div class="phase-body open">
+      <div class="callout callout-teal"><strong>The rule:</strong> You don't need to be a mathematician. You need to read a paper and not panic when you see a gradient, a matrix multiply, or a KL divergence. Every resource here was selected because it tells a story — visual, intuitive, never a wall of symbols. Velleman's proof style but for applied math.</div>
+      <div class="track">
+        <div class="track-label"><span class="pill pill-yt" style="font-size:9px">YouTube</span>Step 1 — Linear Algebra (weeks 1–3 of phase 1)</div>
+        <div class="rows">
+          <div class="row"><div class="row-dot" style="background:var(--teal)"></div><div class="row-info"><div class="row-title">3Blue1Brown — Essence of Linear Algebra (YouTube, free)</div><div class="row-note">16 short videos. Grant Sanderson doesn't teach you to compute — he makes you see what a matrix actually does to space. Dot products, eigenvectors, and the change-of-basis concept will never feel abstract again. You can finish this in a weekend. Do it twice. This is the best math content on the internet, period.</div></div><div class="badge b-math">visual · free</div></div>
+          <div class="row"><div class="row-dot" style="background:var(--teal)"></div><div class="row-info"><div class="row-title">Immersive Math — Linear Algebra (immersivemath.com, free)</div><div class="row-note">Interactive textbook. Every concept has a manipulable visual. Read it after 3B1B to lock in intuition with a bit more rigour. Vectors, dot products, matrix operations, eigenvalues — all clickable, draggable. No dry wall of definitions.</div></div><div class="badge b-math">interactive · free</div></div>
+        </div>
+      </div>
+      <div class="track">
+        <div class="track-label"><span class="pill pill-yt" style="font-size:9px">YouTube</span>Step 2 — Calculus for ML (weeks 3–5)</div>
+        <div class="rows">
+          <div class="row"><div class="row-dot" style="background:var(--teal)"></div><div class="row-info"><div class="row-title">3Blue1Brown — Essence of Calculus (YouTube, free)</div><div class="row-note">11 videos. Derivatives and integrals told as a detective story — why did Newton need to invent this? You'll understand gradients, the chain rule, and partial derivatives as geometry, not as symbol manipulation. This is all you need for understanding backprop.</div></div><div class="badge b-math">visual · free</div></div>
+          <div class="row"><div class="row-dot" style="background:var(--blog)"></div><div class="row-info"><div class="row-title">The Matrix Calculus You Need for Deep Learning — Parr & Howard (free PDF)</div><div class="row-note">Jeremy Howard (fast.ai founder) co-wrote this. 33 pages that bridge "I understand derivatives" to "I can read a backpropagation derivation." Reads like a tutor explaining, not a textbook defining. Do this before Phase 4 (deep learning).</div></div><div class="badge b-math">paper · free</div></div>
+        </div>
+      </div>
+      <div class="track">
+        <div class="track-label"><span class="pill pill-yt" style="font-size:9px">YouTube</span>Step 3 — Probability & Stats (weeks 5–8)</div>
+        <div class="rows">
+          <div class="row"><div class="row-dot" style="background:var(--teal)"></div><div class="row-info"><div class="row-title">StatQuest with Josh Starmer — Statistics Fundamentals playlist (YouTube, free)</div><div class="row-note">Josh has a gift. He explains p-values, probability distributions, Bayes' theorem, and hypothesis testing with hand-drawn visuals and zero pretension. Specific videos to cover: Normal Distribution, Probability vs Likelihood, Bayes' Theorem, MLE. Each video is under 20 minutes. Binge-able.</div></div><div class="badge b-math">visual · free</div></div>
+          <div class="row"><div class="row-dot" style="background:var(--teal)"></div><div class="row-info"><div class="row-title">StatQuest — Machine Learning playlist (YouTube, free)</div><div class="row-note">This is the bridge from probability into ML. StatQuest covers cross-entropy, KL divergence, information gain, and the statistics behind every algorithm you'll use. Watch these alongside Phase 2 courses — they're the "why does this work" for every algorithm you're implementing.</div></div><div class="badge b-math">visual · free</div></div>
+        </div>
+      </div>
+      <div class="track">
+        <div class="track-label"><span class="pill pill-blog" style="font-size:9px">Blog</span>Step 4 — Information Theory (before Phase 6, NLP)</div>
+        <div class="rows">
+          <div class="row"><div class="row-dot" style="background:var(--teal)"></div><div class="row-info"><div class="row-title">Visual Information Theory — Chris Olah (colah.github.io, free)</div><div class="row-note">Single blog post, maybe 20 minutes to read. Chris Olah explains entropy, cross-entropy, KL divergence and mutual information with the most beautiful visual diagrams. You'll read it once and suddenly understand why loss functions are shaped the way they are. Required before touching LLMs seriously.</div></div><div class="badge b-math">blog · free</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ML SYSTEM DESIGN TRACK -->
+  <div class="phase">
+    <div class="phase-header" onclick="tog(this)">
+      <div class="phase-dot" style="background:var(--coral)"></div>
+      <div class="phase-title">ML System Design Track — starts at Phase 3</div>
+      <div class="phase-meta">45–60 min/day from Phase 3</div>
+      <div class="phase-chev">▼</div>
+    </div>
+    <div class="phase-body">
+      <div class="callout callout-coral"><strong>Do not start early.</strong> Wait until Phase 3 (ML Engineering). Before that you lack the vocabulary to reason about trade-offs. After that, this track runs permanently alongside all remaining phases — it's how you reach Senior level, not just practitioner level.</div>
+      <div class="track">
+        <div class="track-label"><span class="pill pill-book" style="font-size:9px">Books</span>Primary — start at Phase 3</div>
+        <div class="rows">
+          <div class="row"><div class="row-dot" style="background:var(--coral)"></div><div class="row-info"><div class="row-title">Designing Machine Learning Systems — Chip Huyen (O'Reilly)</div><div class="row-note">The single most important book on this list. Chip spent years at NVIDIA and writes for engineers, not academics. Covers data pipelines, feature stores, training strategies, deployment patterns, monitoring, feedback loops, and failure modes. Read once at Phase 3 and again at Phase 7. You will get different things out of it each time.</div></div><div class="badge b-sys">must-read</div></div>
+          <div class="row"><div class="row-dot" style="background:var(--coral)"></div><div class="row-info"><div class="row-title">Machine Learning System Design Interview — Ali Aminian & Alex Xu</div><div class="row-note">Same author as the .NET System Design Interview book. Covers recommendation systems, search ranking, ad click prediction, fraud detection, harmful content detection. Each chapter is a worked interview answer. Read alongside Chip Huyen.</div></div><div class="badge b-sys">core</div></div>
+        </div>
+      </div>
+      <div class="track">
+        <div class="track-label"><span class="pill pill-blog" style="font-size:9px">Engineering Blogs</span>Real-world case studies — ongoing</div>
+        <div class="rows">
+          <div class="row"><div class="row-dot" style="background:var(--coral)"></div><div class="row-info"><div class="row-title">Uber Engineering Blog — Michelangelo ML Platform</div><div class="row-note">The blog post that defined modern ML platform thinking. Covers feature stores, online/offline training, model serving, A/B testing at scale. Read at Phase 3 start. Then re-read after Chip Huyen.</div></div><div class="badge b-sys">case study</div></div>
+          <div class="row"><div class="row-dot" style="background:var(--coral)"></div><div class="row-info"><div class="row-title">Meta AI Blog — DLRM (Deep Learning Recommendation Model)</div><div class="row-note">How Meta serves recommendations at billion-user scale. Embedding tables, sparse features, hybrid CPU/GPU inference. Read at Phase 5 after you understand embeddings.</div></div><div class="badge b-sys">case study</div></div>
+          <div class="row"><div class="row-dot" style="background:var(--coral)"></div><div class="row-info"><div class="row-title">Netflix Tech Blog — ML platform posts</div><div class="row-note">A/B testing infrastructure, experimentation at scale, recommendation systems. Netflix publishes genuinely useful engineering content. Subscribe and read selectively.</div></div><div class="badge b-sys">case study</div></div>
+        </div>
+      </div>
+      <div class="track">
+        <div class="track-label"><span class="pill pill-dg" style="font-size:9px">DesignGurus</span>Interview preparation — add at Phase 7</div>
+        <div class="rows">
+          <div class="row"><div class="row-dot" style="background:var(--coral)"></div><div class="row-info"><div class="row-title">Grokking the Machine Learning Interview (designgurus.io)</div><div class="row-note">Structured like Grokking the System Design Interview — each chapter is a worked problem. Recommendation system, search ranking, Ads CTR prediction, harmful content detection, entity linking. Pairs perfectly with the Aminian/Xu book.</div></div><div class="badge b-sys">interview prep</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     SEQUENTIAL PHASES
+══════════════════════════════════════════ -->
+<div class="section-heading">Sequential phases</div>
+
+<!-- PHASE 1: Classical ML -->
+<div class="phase">
+  <div class="phase-header" onclick="tog(this)">
+    <div class="phase-dot" style="background:var(--accent)"></div>
+    <div class="phase-title">Phase 1 — Classical ML: Theory, scikit-learn, and Tree Methods</div>
+    <div class="phase-meta">Pluralsight · Foundation</div>
+    <div class="phase-chev">▼</div>
+  </div>
+  <div class="phase-body open">
+    <div class="callout callout-purple">Start Math Track day 1 alongside this phase. The StatQuest ML playlist is the "why this works" companion to every Pluralsight course here. Watch StatQuest on the topic first, then do the Pluralsight implementation course.</div>
+    <div class="par-note"><strong>Math parallel →</strong> 3B1B Linear Algebra + 3B1B Calculus + StatQuest Statistics while doing this phase.</div>
+
+    <div class="track">
+      <div class="track-label"><span class="pill pill-ps" style="font-size:9px">Pluralsight</span>Machine Learning Essentials path — all courses</div>
+      <div class="rows">
+        <div class="row"><div class="row-dot" style="background:var(--accent)"></div><div class="row-info"><div class="row-title">Key Concepts in Machine Learning</div><div class="row-note">ML types, framing problems, when ML is and isn't the right tool. Do not skip — this shapes how you think about problem framing at design reviews.</div></div><div class="badge b-core">core</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--accent)"></div><div class="row-info"><div class="row-title">Approaches to Data-Enabled Decision Making</div><div class="row-note">Data-inspired vs data-informed vs data-driven. Teaches you how to speak to stakeholders about what ML can and can't guarantee.</div></div><div class="badge b-core">core</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--accent)"></div><div class="row-info"><div class="row-title">Foundations of Statistics and Probability for ML</div><div class="row-note">p-values, hypothesis testing, distributions. Run StatQuest Statistics Fundamentals playlist in parallel — StatQuest makes this visual where Pluralsight stays abstract.</div></div><div class="badge b-core">core</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--accent)"></div><div class="row-info"><div class="row-title">Preparing Data for ML · Designing a ML Model · Creating ML Models · Deploying ML Solutions · Building Your First ML Solution · ML with Python</div><div class="row-note">End-to-end lifecycle: cleaning, framing, building, evaluating, deploying. Do in sequence. These six courses together give you the full mental model before you specialise.</div></div><div class="badge b-core">core</div></div>
+      </div>
+    </div>
+
+    <div class="track">
+      <div class="track-label"><span class="pill pill-ps" style="font-size:9px">Pluralsight</span>scikit-learn path — full sequence</div>
+      <div class="rows">
+        <div class="row"><div class="row-dot" style="background:var(--accent)"></div><div class="row-info"><div class="row-title">Building Your First scikit-learn Solution</div><div class="row-note">API orientation. sklearn's fit/transform/predict pattern is the backbone of everything else. Do first.</div></div><div class="badge b-core">core</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--accent)"></div><div class="row-info"><div class="row-title">Building Classification Models + Building Regression Models + Building Clustering Models</div><div class="row-note">Three course trio: covers logistic regression, SVMs, k-means, DBSCAN. For each algorithm, watch the corresponding StatQuest video first — you'll implement it understanding the math, not just the API.</div></div><div class="badge b-core">core</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--accent)"></div><div class="row-info"><div class="row-title">Reducing Dimensions in Data with scikit-learn</div><div class="row-note">PCA, feature selection, dimensionality reduction. Builds intuition you'll need for embeddings in Phase 6 and 7.</div></div><div class="badge b-core">core</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--accent)"></div><div class="row-info"><div class="row-title">Employing Ensemble Methods + Preparing Data for Modeling + Model Evaluation and Selection + Scaling scikit-learn + Building ML Models in Python</div><div class="row-note">Ensemble methods, cross-validation, ROC/AUC, out-of-core learning. Model Evaluation is especially important — know your metrics cold before any interview.</div></div><div class="badge b-core">core</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--accent)"></div><div class="row-info"><div class="row-title">Building Neural Networks with scikit-learn</div><div class="row-note">Do this last in the sklearn path — it bridges sklearn to Phase 4 by showing you the limits of MLPClassifier and why PyTorch/TF exist.</div></div><div class="badge b-advanced">bridge</div></div>
+      </div>
+    </div>
+
+    <div class="track">
+      <div class="track-label"><span class="pill pill-ps" style="font-size:9px">Pluralsight</span>Tree-Based ML path</div>
+      <div class="rows">
+        <div class="row"><div class="row-dot" style="background:var(--accent)"></div><div class="row-info"><div class="row-title">Introduction to Decision Trees + Advanced Decision Trees</div><div class="row-note">Decision trees are interpretable and the conceptual foundation for everything that follows. Understand information gain and Gini impurity — don't just click the fit() button.</div></div><div class="badge b-core">core</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--accent)"></div><div class="row-info"><div class="row-title">Random Forests</div><div class="row-note">Bagging, feature importance, out-of-bag error. Random forests are still the go-to baseline for tabular data at senior level — know them cold.</div></div><div class="badge b-core">core</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--accent)"></div><div class="row-info"><div class="row-title">Boosting Techniques — XGBoost, LightGBM, CatBoost</div><div class="row-note">Gradient boosting is the dominant algorithm for tabular data in production. At senior level you need to know when XGBoost beats neural nets (it often does on structured data), and why. All CODE LABs for this path — do every single one.</div></div><div class="badge b-core">core</div></div>
+      </div>
+    </div>
+
+    <div class="track">
+      <div class="track-label"><span class="pill pill-book" style="font-size:9px">Books</span>Gap — Géron is deeper than the courses</div>
+      <div class="rows">
+        <div class="row"><div class="row-dot" style="background:var(--green)"></div><div class="row-info"><div class="row-title">Hands-On Machine Learning with Scikit-Learn, Keras & TensorFlow — Aurélien Géron (3rd ed, O'Reilly)</div><div class="row-note">Chapters 1–8 cover classical ML better than any course. Géron writes like an engineer explaining to an engineer — examples are real, explanations have depth. Do not rush through it. This is the book version of the Pluralsight path but with the gaps filled. Chapters 9–18 (deep learning) cover Phase 4 and 5.</div></div><div class="badge b-gap">gap fill</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--green)"></div><div class="row-info"><div class="row-title">Feature Engineering for Machine Learning — Alice Zheng (O'Reilly)</div><div class="row-note">The most underrated book in ML. Feature engineering is where models win or lose in production. Text features, numeric binning, interaction features, feature crosses. Read after the sklearn path.</div></div><div class="badge b-gap">gap fill</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PHASE 2: Python for Data Analysis -->
+<div class="phase" style="margin-top:12px">
+  <div class="phase-header" onclick="tog(this)">
+    <div class="phase-dot" style="background:var(--amber)"></div>
+    <div class="phase-title">Phase 2 — Python Data Stack: pandas, numpy, EDA</div>
+    <div class="phase-meta">Pluralsight · can run parallel to Phase 1</div>
+    <div class="phase-chev">▼</div>
+  </div>
+  <div class="phase-body">
+    <div class="callout callout-amber">This phase can run in parallel with Phase 1's first two weeks. You need pandas fluency before you can comfortably work through the sklearn labs. Don't treat this as a second-class phase — senior ML engineers who can't manipulate data efficiently are bottlenecked at the first step.</div>
+
+    <div class="track">
+      <div class="track-label"><span class="pill pill-ps" style="font-size:9px">Pluralsight</span>Python for Data Analysis path</div>
+      <div class="rows">
+        <div class="row"><div class="row-dot" style="background:var(--amber)"></div><div class="row-info"><div class="row-title">Python for Data Analysis — full path (all courses)</div><div class="row-note">NumPy arrays, pandas DataFrames, groupby, merge, reshape, time series, matplotlib/seaborn visualisation, statistical analysis. These are the tools you'll use every single day for the rest of this path.</div></div><div class="badge b-core">core</div></div>
+      </div>
+    </div>
+
+    <div class="track">
+      <div class="track-label"><span class="pill pill-book" style="font-size:9px">Books</span>Gap — Wes McKinney wrote pandas and wrote the book</div>
+      <div class="rows">
+        <div class="row"><div class="row-dot" style="background:var(--green)"></div><div class="row-info"><div class="row-title">Python for Data Analysis — Wes McKinney (3rd ed, O'Reilly, also free at wesmckinney.com)</div><div class="row-note">Wes built pandas. The book is narrative and example-driven, not a reference manual. Free online at wesmckinney.com. Read chapters you haven't covered in the Pluralsight path — especially Chapter 10 (Data Aggregation) and Chapter 11 (Time Series). The free online version is always up to date.</div></div><div class="badge b-gap">gap fill · free</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PHASE 3: ML Engineering + MLOps -->
+<div class="phase" style="margin-top:12px">
+  <div class="phase-header" onclick="tog(this)">
+    <div class="phase-dot" style="background:var(--green)"></div>
+    <div class="phase-title">Phase 3 — ML Engineering & MLOps: Pipelines, Serving, Monitoring</div>
+    <div class="phase-meta">Pluralsight · Start ML System Design Track here</div>
+    <div class="phase-chev">▼</div>
+  </div>
+  <div class="phase-body">
+    <div class="callout callout-green"><strong>This is where most "ML practitioners" have gaps.</strong> Senior engineers own the full lifecycle. A model that can't be reproduced, monitored, or retrained under data drift is a liability, not an asset. Start the ML System Design parallel track at the beginning of this phase.</div>
+    <div class="par-note"><strong>System Design parallel →</strong> Start <em>Designing Machine Learning Systems</em> (Chip Huyen) now. Read one chapter per week alongside this phase.</div>
+
+    <div class="track">
+      <div class="track-label"><span class="pill pill-ps" style="font-size:9px">Pluralsight</span>Machine Learning Engineering path — full sequence</div>
+      <div class="rows">
+        <div class="row"><div class="row-dot" style="background:var(--green)"></div><div class="row-info"><div class="row-title">Foundations of Machine Learning Engineering</div><div class="row-note">How to think about ML infrastructure: feature quality, model formats, real vs batch training. Mental model for everything that follows.</div></div><div class="badge b-core">core</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--green)"></div><div class="row-info"><div class="row-title">Data Engineering for Machine Learning</div><div class="row-note">Building scalable ingestion pipelines, feature engineering at scale, data validation, ethical considerations. This is the plumbing that makes models reliable.</div></div><div class="badge b-core">core</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--green)"></div><div class="row-info"><div class="row-title">Machine Learning Model Development</div><div class="row-note">Model selection trade-offs: interpretability vs performance, latency vs accuracy, cost vs scale. Evaluating on UCI Adult — real trade-off analysis not just benchmark chasing.</div></div><div class="badge b-core">core</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--green)"></div><div class="row-info"><div class="row-title">Model Deployment and Serving</div><div class="row-note">Real-time vs batch serving, model server patterns, A/B testing for models. Pairs with the Chip Huyen chapter on deployment.</div></div><div class="badge b-core">core</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--green)"></div><div class="row-info"><div class="row-title">Introduction to MLOps + Demystifying MLOps</div><div class="row-note">MLflow, Feast, model registry, feature stores, experiment tracking, versioning. Run both courses together — they cover the same ground with different depth.</div></div><div class="badge b-core">core</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--green)"></div><div class="row-info"><div class="row-title">Distributed Computing for ML</div><div class="row-note">Ray, PyTorch distributed, multi-node training. When a single GPU isn't enough — and at Senior level, you need to know when to reach for this.</div></div><div class="badge b-core">core</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--green)"></div><div class="row-info"><div class="row-title">Scalability and Performance Optimization for ML + Monitoring and Performance Debugging for ML</div><div class="row-note">Model compression, quantisation, caching, load balancing. Monitoring for data drift, concept drift, infrastructure failures. Silent model degradation is the biggest production risk.</div></div><div class="badge b-core">core</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--green)"></div><div class="row-info"><div class="row-title">Productionalizing Data Pipelines with Apache Airflow</div><div class="row-note">DAG-based orchestration, retries, celery workers. Airflow is everywhere in production ML teams. Know enough to contribute, not just consume.</div></div><div class="badge b-advanced">advanced</div></div>
+      </div>
+    </div>
+
+    <div class="track">
+      <div class="track-label"><span class="pill pill-ps" style="font-size:9px">Pluralsight</span>Model Training path — full sequence</div>
+      <div class="rows">
+        <div class="row"><div class="row-dot" style="background:var(--green)"></div><div class="row-info"><div class="row-title">Model Training Best Practices + Efficient Data Feeding and Labeling + Monitor and Evaluate During Training + Hyperparameter Tuning + Prevent Overfitting + Deploy Trained Models + Continuous Training with Evolving Data Streams</div><div class="row-note">Entire training lifecycle end-to-end. Concept drift and continuous training are especially important — most courses ignore the "what happens after launch" problem. All CODE LABs — especially the hyperparameter tuning and metrics labs.</div></div><div class="badge b-core">core</div></div>
+      </div>
+    </div>
+
+    <div class="track">
+      <div class="track-label"><span class="pill pill-free" style="font-size:9px">Tools</span>Gap — MLOps tooling not covered in courses</div>
+      <div class="rows">
+        <div class="row"><div class="row-dot" style="background:var(--green)"></div><div class="row-info"><div class="row-title">Weights & Biases (wandb.ai) — free tier + tutorials</div><div class="row-note">wandb.ai has the best free MLOps tutorials. Their "Effective MLOps" course is free and covers experiment tracking, model registry, data versioning, sweeps for hyperparameter search. Takes 4–6 hours. Hands-on, not slides.</div></div><div class="badge b-gap">gap fill · free</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--green)"></div><div class="row-info"><div class="row-title">DVC (Data Version Control) — official docs + tutorials</div><div class="row-note">Git for data and models. dvc.org has excellent step-by-step tutorials. Essential for reproducibility in production pipelines. Takes one afternoon to get fluent.</div></div><div class="badge b-gap">gap fill · free</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PHASE 4: Deep Learning Foundations -->
+<div class="phase" style="margin-top:12px">
+  <div class="phase-header" onclick="tog(this)">
+    <div class="phase-dot" style="background:var(--pink)"></div>
+    <div class="phase-title">Phase 4 — Deep Learning Foundations: From Neurons to Transformers</div>
+    <div class="phase-meta">Pluralsight + fast.ai + Karpathy</div>
+    <div class="phase-chev">▼</div>
+  </div>
+  <div class="phase-body">
+    <div class="callout callout-pink"><strong>Two-track approach.</strong> Pluralsight gives you the structured theory. fast.ai and Karpathy give you the intuition and implementation depth that turns theory into understanding. Do both — they're complementary. fast.ai is code-first: you run a working model on Day 1 and understand why it works by Day 30.</div>
+    <div class="par-note"><strong>Math parallel →</strong> Parr & Howard's Matrix Calculus PDF now. Then 3B1B's Neural Networks series (4 videos) — watch before starting the backprop course.</div>
+
+    <div class="track">
+      <div class="track-label"><span class="pill pill-ps" style="font-size:9px">Pluralsight</span>Introduction to Neural Networks path</div>
+      <div class="rows">
+        <div class="row"><div class="row-dot" style="background:var(--pink)"></div><div class="row-info"><div class="row-title">Neural Networks Demystified for Data Professionals</div><div class="row-note">Fundamental concepts and terminology. Do this before anything else in the path — it establishes the vocabulary.</div></div><div class="badge b-core">core</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--pink)"></div><div class="row-info"><div class="row-title">How Neural Networks Learn: Architecture, Gradient Descent, and Backpropagation</div><div class="row-note">The most important course in this phase. If you understand this properly, everything downstream makes sense. Watch 3B1B's "What is backpropagation really doing?" (YouTube, free) before this course — it's the visual pre-read.</div></div><div class="badge b-core">core</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--pink)"></div><div class="row-info"><div class="row-title">Practical Guide to Neural Network Training: Leading Frameworks</div><div class="row-note">TensorFlow and PyTorch hands-on. Do the PyTorch sections — skip TensorFlow unless you need it specifically.</div></div><div class="badge b-core">core</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--pink)"></div><div class="row-info"><div class="row-title">Optimizing Neural Networks + Transfer Learning + Applying Pre-trained Models + Using Neural Networks for Image and Voice Data + Troubleshooting Neural Network Performance + Implementing Neural Networks in Enterprise</div><div class="row-note">Full production lifecycle for neural nets. Troubleshooting and Enterprise courses are where the gap between hobbyist and senior engineer lives. All CODE LABs.</div></div><div class="badge b-core">core</div></div>
+      </div>
+    </div>
+
+    <div class="track">
+      <div class="track-label"><span class="pill pill-ps" style="font-size:9px">Pluralsight</span>Deep Learning path</div>
+      <div class="rows">
+        <div class="row"><div class="row-dot" style="background:var(--pink)"></div><div class="row-info"><div class="row-title">Convolutional Neural Networks (CNNs)</div><div class="row-note">Convolutional layers, pooling, feature maps, architecture decisions. The spatial intuition from CNNs recurs in attention — it's not just a vision technique.</div></div><div class="badge b-core">core</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--pink)"></div><div class="row-info"><div class="row-title">Recurrent Neural Networks (RNNs)</div><div class="row-note">Simple RNNs, LSTMs, GRUs, vanishing gradient problem. Important to understand why transformers replaced them — you can't appreciate the solution without knowing the problem.</div></div><div class="badge b-core">core</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--pink)"></div><div class="row-info"><div class="row-title">Transformers and LLMs + Natural Language Processing for Deep Learning</div><div class="row-note">Attention mechanisms, encoder/decoder stacks, positional encoding. Read Jay Alammar's "The Illustrated Transformer" blog post before this course — it's the best visual primer for attention that exists.</div></div><div class="badge b-core">core</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--pink)"></div><div class="row-info"><div class="row-title">Deep Learning Frameworks + Model Evaluation, Tuning, Optimization + Model Deployment</div><div class="row-note">Production DL: quantisation, pruning, ONNX export, TensorRT. Build Image Recognition, Speech Recognition, and Generative AI model projects — all three.</div></div><div class="badge b-core">core</div></div>
+      </div>
+    </div>
+
+    <div class="track">
+      <div class="track-label"><span class="pill pill-fast" style="font-size:9px">fast.ai</span>Gap — the most important DL course that exists</div>
+      <div class="rows">
+        <div class="row"><div class="row-dot" style="background:var(--pink)"></div><div class="row-info"><div class="row-title">Practical Deep Learning for Coders — fast.ai (course.fast.ai, free)</div><div class="row-note">Jeremy Howard's free course. Top-down: you train a state-of-the-art model on Day 1 and understand the internals over the following weeks. The philosophy matches Velleman's — build intuition first, rigour follows. Run this alongside or after Pluralsight Phase 4. The notebooks are PyTorch-native and production-quality. Part 2 (the foundations course) goes even deeper — optional but exceptional.</div></div><div class="badge b-gap">gap fill · free</div></div>
+      </div>
+    </div>
+
+    <div class="track">
+      <div class="track-label"><span class="pill pill-yt" style="font-size:9px">YouTube</span>Gap — Karpathy is irreplaceable</div>
+      <div class="rows">
+        <div class="row"><div class="row-dot" style="background:var(--pink)"></div><div class="row-info"><div class="row-title">Andrej Karpathy — micrograd (YouTube + GitHub)</div><div class="row-note">"The spelled-out intro to neural networks and backpropagation." 2 hours. Karpathy builds a neural network and autograd engine from scratch in ~150 lines of Python, and you understand every line. After watching this, backpropagation stops being a black box forever. Start here before the Pluralsight backprop course.</div></div><div class="badge b-gap">gap fill · free</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--pink)"></div><div class="row-info"><div class="row-title">Andrej Karpathy — makemore series (YouTube, 5 videos)</div><div class="row-note">Builds a character-level language model from scratch: bigrams → MLPs → RNNs → transformer. The most educational path from "I understand backprop" to "I understand GPT" that exists. Do this before the LLM phase.</div></div><div class="badge b-gap">gap fill · free</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--pink)"></div><div class="row-info"><div class="row-title">Andrej Karpathy — "Let's build GPT from scratch" (YouTube)</div><div class="row-note">2 hours. Builds a GPT model from scratch in PyTorch. Watch after makemore. After this video and Karpathy's series, you can read the original "Attention Is All You Need" paper and it will make complete sense.</div></div><div class="badge b-gap">gap fill · free</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--pink)"></div><div class="row-info"><div class="row-title">3Blue1Brown — Neural Networks playlist (YouTube, 4 videos)</div><div class="row-note">"But what is a neural network?" and the following 3 videos. Grant's visual treatment of how gradient descent actually searches for parameters. Watch before the Pluralsight backprop course.</div></div><div class="badge b-gap">gap fill · free</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PHASE 5: PyTorch -->
+<div class="phase" style="margin-top:12px">
+  <div class="phase-header" onclick="tog(this)">
+    <div class="phase-dot" style="background:var(--blue)"></div>
+    <div class="phase-title">Phase 5 — PyTorch: Implementation from Tensors to Production</div>
+    <div class="phase-meta">Pluralsight · can overlap with Phase 4 from week 3</div>
+    <div class="phase-chev">▼</div>
+  </div>
+  <div class="phase-body">
+    <div class="callout callout-blue">PyTorch is the production standard for research and increasingly for serving. The Pluralsight path here is comprehensive. The CODE LABs are the most important part — passive watching is worthless in this phase. Every lab, every exercise.</div>
+
+    <div class="track">
+      <div class="track-label"><span class="pill pill-ps" style="font-size:9px">Pluralsight</span>Building Deep Learning Solutions with PyTorch — full path</div>
+      <div class="rows">
+        <div class="row"><div class="row-dot" style="background:var(--blue)"></div><div class="row-info"><div class="row-title">Foundations of PyTorch</div><div class="row-note">Tensors, dynamic computation graphs, autograd. The computational graph model is what makes PyTorch feel natural to Python developers. Contrast with TensorFlow 1's static graphs — knowing the difference matters for reading papers.</div></div><div class="badge b-core">core</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--blue)"></div><div class="row-info"><div class="row-title">Building Your First PyTorch Solution + Predictive Analytics with PyTorch + Building Deep Learning Models Using PyTorch</div><div class="row-note">Regression, classification, and deeper architectures. This trio builds fluency — not just API knowledge. All CODE LABs.</div></div><div class="badge b-core">core</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--blue)"></div><div class="row-info"><div class="row-title">Natural Language Processing with PyTorch + LLM Basics and Transformers with PyTorch</div><div class="row-note">PyTorch's text tools, tokenisation, transformers in PyTorch. The LSTM language model CODE LAB is particularly valuable — building it makes Phase 6 (LLMs) significantly more intuitive.</div></div><div class="badge b-core">core</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--blue)"></div><div class="row-info"><div class="row-title">Image Classification with PyTorch + Style Transfer with PyTorch</div><div class="row-note">CNN implementation practice. Style transfer is excellent for understanding perceptual loss functions and feature extraction from pre-trained models.</div></div><div class="badge b-core">core</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--blue)"></div><div class="row-info"><div class="row-title">Expediting Deep Learning with Transfer Learning: PyTorch Playbook</div><div class="row-note">Inductive, transductive, unsupervised transfer. Fine-tuning strategies. The backbone of all Phase 6 and 7 work — you will use transfer learning for everything LLM-related.</div></div><div class="badge b-core">core</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--blue)"></div><div class="row-info"><div class="row-title">Deploying PyTorch Models in Production: PyTorch Playbook</div><div class="row-note">TorchScript, ONNX export, serialisation, serving patterns. This bridges Phase 5 to the MLOps work in Phase 3.</div></div><div class="badge b-core">core</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--blue)"></div><div class="row-info"><div class="row-title">Using PyTorch in the Cloud: PyTorch Playbook</div><div class="row-note">AWS, GCP, Azure with PyTorch. Cloud deployment is a Senior-level expectation.</div></div><div class="badge b-advanced">advanced</div></div>
+      </div>
+    </div>
+
+    <div class="track">
+      <div class="track-label"><span class="pill pill-blog" style="font-size:9px">Blog</span>Gap — Jay Alammar is essential reading</div>
+      <div class="rows">
+        <div class="row"><div class="row-dot" style="background:var(--green)"></div><div class="row-info"><div class="row-title">Jay Alammar — The Illustrated Transformer (jalammar.github.io, free)</div><div class="row-note">The most-linked blog post in ML. Visual, step-by-step walkthrough of the transformer architecture. Read it before the transformer Pluralsight course. Then read it again after. Then read "The Illustrated BERT" and "The Illustrated GPT-2" from the same blog.</div></div><div class="badge b-gap">gap fill · free</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PHASE 6: NLP -->
+<div class="phase" style="margin-top:12px">
+  <div class="phase-header" onclick="tog(this)">
+    <div class="phase-dot" style="background:var(--teal)"></div>
+    <div class="phase-title">Phase 6 — NLP: Classical Text Processing to Transformer-based Models</div>
+    <div class="phase-meta">Pluralsight + HuggingFace · Math Track: Chris Olah now</div>
+    <div class="phase-chev">▼</div>
+  </div>
+  <div class="phase-body">
+    <div class="callout callout-teal">Read Chris Olah's Visual Information Theory before starting this phase — entropy and KL divergence appear in every loss function discussion. The HuggingFace NLP Course is the most important gap resource here — the Pluralsight courses give you theory, HuggingFace gives you the production ecosystem.</div>
+    <div class="par-note"><strong>Math parallel →</strong> Chris Olah's "Visual Information Theory" (colah.github.io) — read before this phase begins.</div>
+
+    <div class="track">
+      <div class="track-label"><span class="pill pill-ps" style="font-size:9px">Pluralsight</span>Introduction to NLP path — full sequence</div>
+      <div class="rows">
+        <div class="row"><div class="row-dot" style="background:var(--teal)"></div><div class="row-info"><div class="row-title">Introduction to NLP for Data Practitioners + Text Data Cleaning and Pre-processing</div><div class="row-note">NLP fundamentals, tokenisation, stemming, lemmatisation, cleaning pipelines. Classical NLP that still matters when modern transformers aren't practical.</div></div><div class="badge b-core">core</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--teal)"></div><div class="row-info"><div class="row-title">Text Classification + Understanding Sentiment Analysis + Advanced Text Analytics: Topic Modeling and NER</div><div class="row-note">Classification models from Naive Bayes to neural networks. Multi-class and multi-label. Topic modeling (LDA) and NER — both appear regularly in production NLP systems alongside LLMs.</div></div><div class="badge b-core">core</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--teal)"></div><div class="row-info"><div class="row-title">Working with Pre-trained NLP Models</div><div class="row-note">Transfer learning via HuggingFace, fine-tuning, preventing overfitting in fine-tuned models, fairness metrics. This course is the bridge to the modern LLM stack.</div></div><div class="badge b-core">core</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--teal)"></div><div class="row-info"><div class="row-title">Automating Data Extraction from Documents Using NLP + Real-world NLP Case Studies</div><div class="row-note">Rule-based extraction, unstructured document processing, real production case studies in healthcare, finance, and e-commerce. The "case studies" course is excellent for interview discussion depth.</div></div><div class="badge b-advanced">advanced</div></div>
+      </div>
+    </div>
+
+    <div class="track">
+      <div class="track-label"><span class="pill pill-hf" style="font-size:9px">HuggingFace</span>Gap — the production NLP ecosystem</div>
+      <div class="rows">
+        <div class="row"><div class="row-dot" style="background:var(--teal)"></div><div class="row-info"><div class="row-title">HuggingFace NLP Course (huggingface.co/learn/nlp-course, free)</div><div class="row-note">8 chapters, free, built by HuggingFace itself. Covers Transformers library, Datasets, Tokenizers, fine-tuning BERT for classification, token classification, QA, translation, summarisation. This is the standard production workflow for NLP — you need fluency here before touching LLMs in Phase 7.</div></div><div class="badge b-gap">gap fill · free</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--teal)"></div><div class="row-info"><div class="row-title">PEFT Library — LoRA and QLoRA documentation (huggingface.co/docs/peft, free)</div><div class="row-note">Parameter-efficient fine-tuning. LoRA allows fine-tuning billion-parameter models on consumer hardware by training only low-rank adapter matrices. Required knowledge for anyone working with LLMs in production. HuggingFace PEFT docs + the original LoRA paper (arxiv 2106.09685, 10 pages) together take one afternoon.</div></div><div class="badge b-gap">gap fill · free</div></div>
+      </div>
+    </div>
+
+    <div class="track">
+      <div class="track-label"><span class="pill pill-ps" style="font-size:9px">Pluralsight</span>Large Language Models path</div>
+      <div class="rows">
+        <div class="row"><div class="row-dot" style="background:var(--teal)"></div><div class="row-info"><div class="row-title">NLP and Transformer Models</div><div class="row-note">Transformers architecture in depth. Complements the HuggingFace course's practical focus with more structural theory.</div></div><div class="badge b-core">core</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--teal)"></div><div class="row-info"><div class="row-title">AI Language Models and Foundation Models</div><div class="row-note">Foundation model architecture, multimodal models, autonomous agents. Covers the entire model landscape at a design level — essential for system design discussions about which model family to use.</div></div><div class="badge b-core">core</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--teal)"></div><div class="row-info"><div class="row-title">Reinforcement Learning from Human Feedback (RLHF)</div><div class="row-note">How ChatGPT-style models are actually trained. The InstructGPT paper brought RLHF mainstream — read the paper alongside this course. 15 pages, very readable.</div></div><div class="badge b-core">core</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--teal)"></div><div class="row-info"><div class="row-title">Practical Application of LLMs</div><div class="row-note">Decoder-only LLMs, fine-tuning for real use cases, prompt strategies, applying LLMs to business problems. The most hands-on course in this path.</div></div><div class="badge b-core">core</div></div>
+      </div>
+    </div>
+
+    <div class="track">
+      <div class="track-label"><span class="pill pill-paper" style="font-size:9px">Papers</span>Gap — read the actual papers, they're not as scary as they look</div>
+      <div class="rows">
+        <div class="row"><div class="row-dot" style="background:var(--green)"></div><div class="row-info"><div class="row-title">Attention Is All You Need — Vaswani et al., 2017 (arxiv 1706.03762)</div><div class="row-note">The transformer paper. Read it after Jay Alammar's illustrated post — the post makes the paper readable. 15 pages. You don't need to derive every equation, but you should be able to describe each component and why it replaced RNNs.</div></div><div class="badge b-gap">paper · free</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--green)"></div><div class="row-info"><div class="row-title">Training language models to follow instructions with human feedback — Ouyang et al., 2022 (InstructGPT paper)</div><div class="row-note">The RLHF paper. 69 pages but the method section (pages 4–8) is the core. This is what made GPT-3 into ChatGPT. Read alongside the RLHF Pluralsight course.</div></div><div class="badge b-gap">paper · free</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PHASE 7: RAG + Agentic AI + MCP -->
+<div class="phase" style="margin-top:12px">
+  <div class="phase-header" onclick="tog(this)">
+    <div class="phase-dot" style="background:var(--amber)"></div>
+    <div class="phase-title">Phase 7 — LLMs in Production: RAG, Agentic Systems & MCP</div>
+    <div class="phase-meta">Pluralsight · Highest-leverage phase for 2026</div>
+    <div class="phase-chev">▼</div>
+  </div>
+  <div class="phase-body">
+    <div class="callout callout-amber"><strong>This is the current frontier.</strong> The ability to build, evaluate, and operate RAG systems and agentic pipelines in production is what differentiates senior AI engineers right now. The Pluralsight coverage here is genuinely strong. The gap resources are focused on evaluation and observability — the hardest part of production LLM systems.</div>
+
+    <div class="track">
+      <div class="track-label"><span class="pill pill-ps" style="font-size:9px">Pluralsight</span>RAG for Developers path — full sequence</div>
+      <div class="rows">
+        <div class="row"><div class="row-dot" style="background:var(--amber)"></div><div class="row-info"><div class="row-title">Vector Space Models and Embeddings in RAGs</div><div class="row-note">Embedding vectors, semantic search, how embeddings capture meaning. Check the MTEB Leaderboard (huggingface.co/spaces/mteb/leaderboard) after this course — it shows which embedding models actually work best for which tasks.</div></div><div class="badge b-core">core</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--amber)"></div><div class="row-info"><div class="row-title">Integrating Knowledge Bases for RAGs</div><div class="row-note">Chunking strategies, metadata, indexing, semantic search through enterprise data. Chunking is deceptively important — bad chunking is the most common reason RAGs fail silently.</div></div><div class="badge b-core">core</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--amber)"></div><div class="row-info"><div class="row-title">Optimizing Data Retrieval Techniques</div><div class="row-note">Semantic indexing, relevance scoring, query reformulation, parent-document retrieval. Hybrid search (keyword + semantic) is the current production best practice.</div></div><div class="badge b-core">core</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--amber)"></div><div class="row-info"><div class="row-title">Modular RAGs</div><div class="row-note">Three-tier architecture, linear vs conditional routing, independent indexing/retrieval/generation modules. Modularity is what makes RAG systems maintainable at scale.</div></div><div class="badge b-core">core</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--amber)"></div><div class="row-info"><div class="row-title">Improving Retrieval with RAG Fine-tuning</div><div class="row-note">Retrievers, rerankers, generators. Fine-tuning for domain-specific accuracy. Cross-encoder rerankers are a significant accuracy win that most RAG tutorials skip.</div></div><div class="badge b-core">core</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--amber)"></div><div class="row-info"><div class="row-title">Multi-modal RAGs</div><div class="row-note">Images, charts, tables in RAG pipelines. ColPali-style multi-modal retrieval is an active area — this course puts you on the frontier.</div></div><div class="badge b-advanced">advanced</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--amber)"></div><div class="row-info"><div class="row-title">Evaluating RAG Solutions</div><div class="row-note">RAGAS framework, retrieval metrics (precision@k, recall@k, MRR), generation metrics (faithfulness, answer relevancy). <strong>This is the most important course in the RAG path.</strong> Building a RAG is easy. Knowing if it works is the hard part.</div></div><div class="badge b-core">core</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--amber)"></div><div class="row-info"><div class="row-title">Deploying and Maintaining RAG Systems + Federated Learning and Privacy-preserving RAGs</div><div class="row-note">Production serving, API endpoints, observability, privacy-preserving retrieval for regulated industries. Healthcare and finance use cases dominate enterprise RAG — the federated course is high-value if targeting those sectors.</div></div><div class="badge b-advanced">advanced</div></div>
+      </div>
+    </div>
+
+    <div class="track">
+      <div class="track-label"><span class="pill pill-ps" style="font-size:9px">Pluralsight</span>Agentic LLMs for Developers path — full sequence</div>
+      <div class="rows">
+        <div class="row"><div class="row-dot" style="background:var(--amber)"></div><div class="row-info"><div class="row-title">Introduction to Developing AI Agents + Frameworks for Developing LLM Agents</div><div class="row-note">Agent architecture, tools/function calling, Spring AI framework. Function calling is the fundamental primitive — understand the tool-use loop before touching any agent framework.</div></div><div class="badge b-core">core</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--amber)"></div><div class="row-info"><div class="row-title">Memory-augmented and Persistent Agents</div><div class="row-note">Stateless LLM → memory-enabled agent. Short-term, long-term, episodic, semantic memory patterns. The gap between a demo agent and a production agent is almost always memory architecture.</div></div><div class="badge b-core">core</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--amber)"></div><div class="row-info"><div class="row-title">Developing Multi-agent Systems</div><div class="row-note">Multi-agent coordination, distributed problem-solving, shared state management. The hardest engineering problems in agentic AI appear here — race conditions on shared state, deduplication, audit trails.</div></div><div class="badge b-core">core</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--amber)"></div><div class="row-info"><div class="row-title">Event-driven Agentic AI</div><div class="row-note">Real-time event-driven agents, webhooks, state machines, audit requirements. This is the course that bridges distributed systems (your existing .NET knowledge) with agentic AI — event-driven architecture expertise is a rare combination.</div></div><div class="badge b-core">core</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--amber)"></div><div class="row-info"><div class="row-title">Evaluating and Optimizing LLM Agents + Domain-specific LLM Agents + Agentic Knowledge Graphs</div><div class="row-note">Evaluation metrics (hallucination rate, contextual fit, task completion), domain adaptation for data center operations, knowledge graph-backed reasoning. All three are advanced — do after the core agent courses.</div></div><div class="badge b-advanced">advanced</div></div>
+      </div>
+    </div>
+
+    <div class="track">
+      <div class="track-label"><span class="pill pill-ps" style="font-size:9px">Pluralsight</span>Model Context Protocol (MCP) — directly relevant to your C# stack</div>
+      <div class="rows">
+        <div class="row"><div class="row-dot" style="background:var(--amber)"></div><div class="row-info"><div class="row-title">Introduction to Model Context Protocol + Model Context Protocol in Practice</div><div class="row-note">MCP hosts/clients/servers, tools/resources/prompts primitives, building real MCP servers for enterprise resources. The open standard for AI-tool integration — this will be everywhere in the next 2 years.</div></div><div class="badge b-core">core</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--amber)"></div><div class="row-info"><div class="row-title">FastMCP Foundations</div><div class="row-note">FastMCP as an accelerated MCP development layer. Simplifies server scaffolding significantly.</div></div><div class="badge b-core">core</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--amber)"></div><div class="row-info"><div class="row-title">Using the C# Model Context Protocol SDK</div><div class="row-note"><strong>Highest priority in the MCP sub-path.</strong> C# MCP SDK — build, test, and deploy MCP servers from your existing .NET stack. Your distributed .NET background is a direct advantage here: you know how to build robust, observable services. Apply that to MCP.</div></div><div class="badge b-core">core</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--amber)"></div><div class="row-info"><div class="row-title">CODE LABs — MCP server from scratch + RAG prompt engineering desktop lab</div><div class="row-note">Build a compliant MCP server from scratch in Python (FastAPI). Build an LLM that alters generation based on retrieved data. Both are mandatory — passive watching of agent/RAG courses without building something is academic.</div></div><div class="badge b-core">core</div></div>
+      </div>
+    </div>
+
+    <div class="track">
+      <div class="track-label"><span class="pill pill-free" style="font-size:9px">Tools</span>Gap — production LLM observability</div>
+      <div class="rows">
+        <div class="row"><div class="row-dot" style="background:var(--green)"></div><div class="row-info"><div class="row-title">Phoenix by Arize AI (docs.arize.com/phoenix, free open source)</div><div class="row-note">Open-source LLM observability and evaluation. Traces agent execution, evaluates RAG retrieval quality, detects hallucinations. The Datadog equivalent for LLM systems. Free tier is sufficient. One afternoon to get running.</div></div><div class="badge b-gap">gap fill · free</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--green)"></div><div class="row-info"><div class="row-title">RAGAS (ragas.io, free) — RAG evaluation framework</div><div class="row-note">Python framework for evaluating RAG pipelines: faithfulness, answer relevancy, context recall, context precision. The Pluralsight evaluation course teaches the concepts — RAGAS is the tool you'll actually use in production. Quick to set up, essential to know.</div></div><div class="badge b-gap">gap fill · free</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PHASE 8: Reinforcement Learning -->
+<div class="phase" style="margin-top:12px">
+  <div class="phase-header" onclick="tog(this)">
+    <div class="phase-dot" style="background:var(--orange)"></div>
+    <div class="phase-title">Phase 8 — Reinforcement Learning: MDPs to Actor-Critic</div>
+    <div class="phase-meta">Pluralsight + Sutton & Barto</div>
+    <div class="phase-chev">▼</div>
+  </div>
+  <div class="phase-body">
+    <div class="callout callout-orange">RL is increasingly relevant for three areas: RLHF (how ChatGPT is trained), recommendation systems (long-horizon reward optimisation), and agentic systems (policy learning). The Pluralsight coverage is solid. The Sutton & Barto book is the canonical reference — but it's not a light read. Use it as a reference alongside, not as a primary text.</div>
+
+    <div class="track">
+      <div class="track-label"><span class="pill pill-ps" style="font-size:9px">Pluralsight</span>Reinforcement Learning path — full sequence</div>
+      <div class="rows">
+        <div class="row"><div class="row-dot" style="background:var(--orange)"></div><div class="row-info"><div class="row-title">Introduction to Reinforcement Learning</div><div class="row-note">Markov Decision Processes, Dynamic Programming, Monte Carlo methods. MDPs are the formal framework that everything else in RL builds on — understand them properly.</div></div><div class="badge b-core">core</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--orange)"></div><div class="row-info"><div class="row-title">Getting Started with Gymnasium</div><div class="row-note">Gymnasium (OpenAI Gym successor) for designing and running simulation environments. Practical hands-on — agents need environments to learn in.</div></div><div class="badge b-core">core</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--orange)"></div><div class="row-info"><div class="row-title">Introduction to Q-learning</div><div class="row-note">Tabular Q-learning, Q-tables, DQN (Deep Q-Network). Q-learning is the conceptual gateway to modern deep RL. The DQN section connects Phase 4 (deep learning) with RL.</div></div><div class="badge b-core">core</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--orange)"></div><div class="row-info"><div class="row-title">Monte Carlo Methods</div><div class="row-note">Episodic sampling, first-visit vs every-visit estimation, ε-greedy policy control. Monte Carlo methods are conceptually clean — excellent for building intuition before policy gradients.</div></div><div class="badge b-core">core</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--orange)"></div><div class="row-info"><div class="row-title">Actor-critic Methods and Advantage Estimation</div><div class="row-note">A2C, A3C, SAC, advantage estimation. Actor-critic is the architecture family that underlies PPO, which is what InstructGPT uses for RLHF. Connect this explicitly to Phase 6's RLHF course.</div></div><div class="badge b-core">core</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--orange)"></div><div class="row-info"><div class="row-title">Modified Reinforcement Learning</div><div class="row-note">Reward shaping, inverse RL, constraint handling, hierarchical RL. Real-world RL is always constrained — this is where textbook RL meets production systems.</div></div><div class="badge b-advanced">advanced</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--orange)"></div><div class="row-info"><div class="row-title">All CODE LABs — especially PPO vs A2C/A3C, Monte Carlo warehouse sim, tabular Q-learning</div><div class="row-note">The PPO lab is particularly important — PPO is the algorithm used in RLHF, and implementing it connects everything.</div></div><div class="badge b-core">core</div></div>
+      </div>
+    </div>
+
+    <div class="track">
+      <div class="track-label"><span class="pill pill-book" style="font-size:9px">Books</span>Gap — the canonical RL reference</div>
+      <div class="rows">
+        <div class="row"><div class="row-dot" style="background:var(--green)"></div><div class="row-info"><div class="row-title">Reinforcement Learning: An Introduction — Sutton & Barto (2nd ed, free at incompleteideas.net)</div><div class="row-note">The bible of RL. Free online. This is a reference text, not a read-cover-to-cover text — use it to go deeper on specific concepts when the Pluralsight courses leave you wanting more rigour. Chapters 3–6 (MDPs, DP, MC, TD) are the most important for applied ML engineers.</div></div><div class="badge b-gap">gap fill · free</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--green)"></div><div class="row-info"><div class="row-title">Spinning Up in Deep RL — OpenAI (spinningup.openai.com, free)</div><div class="row-note">OpenAI's guide to deep RL. Cleaner than Sutton & Barto for practitioners, more implementation-focused. Covers VPG, TRPO, PPO, DDPG, TD3, SAC with actual code. Use after the Pluralsight path to get implementation-depth on specific algorithms.</div></div><div class="badge b-gap">gap fill · free</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PHASE 9: ML System Design Capstone -->
+<div class="phase" style="margin-top:12px">
+  <div class="phase-header" onclick="tog(this)">
+    <div class="phase-dot" style="background:var(--coral)"></div>
+    <div class="phase-title">Phase 9 — ML System Design: The Senior Engineer Capstone</div>
+    <div class="phase-meta">No Pluralsight source — entirely gap-filled · Critical</div>
+    <div class="phase-chev">▼</div>
+  </div>
+  <div class="phase-body">
+    <div class="callout callout-coral"><strong>This is the largest gap in your course library.</strong> None of your uploaded courses cover ML system design at scale. This is also the single biggest differentiator between a practitioner and a Senior/Staff ML engineer. You cannot interview at MAANG-level without this. The System Design Track (parallel track, top of this roadmap) builds toward this phase — by Phase 9 you should have already read Chip Huyen once and the Aminian/Xu book.</div>
+
+    <div class="track">
+      <div class="track-label"><span class="pill pill-book" style="font-size:9px">Books</span>Primary — both required</div>
+      <div class="rows">
+        <div class="row"><div class="row-dot" style="background:var(--coral)"></div><div class="row-info"><div class="row-title">Designing Machine Learning Systems — Chip Huyen (O'Reilly) — second read</div><div class="row-note">Re-read after completing Phases 3–8. You will get completely different things out of it. The chapters on feature stores, data distribution shifts, continual learning, and infrastructure will now have concrete meaning attached to every paragraph. Mark up the margins this time.</div></div><div class="badge b-sys">must-read</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--coral)"></div><div class="row-info"><div class="row-title">Machine Learning System Design Interview — Aminian & Alex Xu</div><div class="row-note">Recommendation system, visual search, ad click prediction, event recommendation, entity linking. Each chapter is a worked interview. Practice answering each one out loud before looking at the solution. The Xu book pairs with Chip Huyen the same way the Alex Xu System Design book paired with Grokking in your .NET roadmap.</div></div><div class="badge b-sys">core</div></div>
+      </div>
+    </div>
+
+    <div class="track">
+      <div class="track-label"><span class="pill pill-blog" style="font-size:9px">Engineering Blogs</span>Real-world architecture — study these like case studies</div>
+      <div class="rows">
+        <div class="row"><div class="row-dot" style="background:var(--coral)"></div><div class="row-info"><div class="row-title">Uber Engineering — Michelangelo: Uber's Machine Learning Platform (eng.uber.com)</div><div class="row-note">The post that defined ML platform thinking. Feature stores, online/offline pipelines, model serving, shadow mode testing. This is the "Designing Data-Intensive Applications" of ML platforms. Read it twice.</div></div><div class="badge b-sys">case study</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--coral)"></div><div class="row-info"><div class="row-title">Google — Wide & Deep Learning for Recommender Systems (arxiv 1606.07792)</div><div class="row-note">4 pages. Memorisation vs generalisation in recommendation systems. The architecture that powers Google Play. Reading this paper teaches you more about production recommendation systems than most courses.</div></div><div class="badge b-sys">paper · free</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--coral)"></div><div class="row-info"><div class="row-title">Airbnb Engineering — Applying Deep Learning To Airbnb Search</div><div class="row-note">Real-world search ranking system evolution. How Airbnb moved from gradient boosting to neural networks in production — and what went wrong along the way. Honest engineering writing.</div></div><div class="badge b-sys">case study</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--coral)"></div><div class="row-info"><div class="row-title">Meta AI — Scaling Data-Constrained Language Models + DLRM</div><div class="row-note">DLRM: Deep Learning Recommendation Model. How Meta serves recommendations at billion-user scale with hybrid CPU/GPU infrastructure and trillion-parameter embedding tables. Read after you understand embeddings from Phase 7.</div></div><div class="badge b-sys">case study</div></div>
+      </div>
+    </div>
+
+    <div class="track">
+      <div class="track-label"><span class="pill pill-free" style="font-size:9px">Serving Infrastructure</span>Gap — production ML serving tools</div>
+      <div class="rows">
+        <div class="row"><div class="row-dot" style="background:var(--coral)"></div><div class="row-info"><div class="row-title">NVIDIA Triton Inference Server — official docs and quickstart (developer.nvidia.com/triton)</div><div class="row-note">The production standard for GPU model serving at scale. Multi-model serving, dynamic batching, model ensemble. Free tier + documentation is sufficient to understand the architecture. Referenced in almost every large-scale ML serving discussion.</div></div><div class="badge b-sys">gap fill · free</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--coral)"></div><div class="row-info"><div class="row-title">Ray Serve — official docs (docs.ray.io/en/latest/serve, free)</div><div class="row-note">Python-native model serving with Ray. Autoscaling, request batching, pipeline composition. The Ray ecosystem (Ray + Ray Tune + Ray Serve) covers distributed training AND serving — high ROI to know both sides.</div></div><div class="badge b-sys">gap fill · free</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--coral)"></div><div class="row-info"><div class="row-title">A/B Testing for ML — Ronny Kohavi — "Trustworthy Online Controlled Experiments" (book)</div><div class="row-note">The definitive book on online experimentation. Kohavi ran A/B testing at Microsoft and Airbnb. You cannot make credible production ML decisions without understanding how to run valid experiments. Chapters 1–5 are sufficient for senior-level discussion.</div></div><div class="badge b-sys">gap fill</div></div>
+      </div>
+    </div>
+
+    <div class="track">
+      <div class="track-label"><span class="pill pill-dg" style="font-size:9px">DesignGurus</span>Interview preparation — active practice</div>
+      <div class="rows">
+        <div class="row"><div class="row-dot" style="background:var(--coral)"></div><div class="row-info"><div class="row-title">Grokking the Machine Learning Interview (designgurus.io)</div><div class="row-note">Worked interview problems: recommendation system, search ranking, ad CTR prediction, fraud detection, harmful content detection, entity linking. Do every problem out loud before reading the solution. The meta-skill is building a consistent design framework — problem scope → data → features → model → serving → monitoring → iterations.</div></div><div class="badge b-sys">interview prep</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PHASE 10: LLM Ops + Production Frontier -->
+<div class="phase" style="margin-top:12px">
+  <div class="phase-header" onclick="tog(this)">
+    <div class="phase-dot" style="background:var(--green)"></div>
+    <div class="phase-title">Phase 10 — LLMOps & Production Frontier (ongoing)</div>
+    <div class="phase-meta">No end date — this is the living edge</div>
+    <div class="phase-chev">▼</div>
+  </div>
+  <div class="phase-body">
+    <div class="callout callout-green">This phase has no finish line. The LLM production stack is moving faster than any course can keep up with. The strategy here is building feed habits — the right newsletters, blogs, and communities that surface signal over noise. Your .NET engineering background is a genuine differentiator: teams building LLM-powered backends in C# are rare and increasingly sought after.</div>
+
+    <div class="track">
+      <div class="track-label"><span class="pill pill-free" style="font-size:9px">Observability</span>LLM production tooling — gaps not covered anywhere</div>
+      <div class="rows">
+        <div class="row"><div class="row-dot" style="background:var(--green)"></div><div class="row-info"><div class="row-title">LangSmith (smith.langchain.com) — LLM tracing and evaluation</div><div class="row-note">Trace LLM calls, debug agent chains, run evaluation datasets. Pairs with LangChain but works standalone. The observability gap in LLM systems is significant — most teams fly blind. One afternoon to instrument a RAG pipeline.</div></div><div class="badge b-gap">gap fill</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--green)"></div><div class="row-info"><div class="row-title">Helicone (helicone.ai) — LLM cost, latency, and usage monitoring</div><div class="row-note">One-line proxy for any OpenAI-compatible API. Tracks cost per request, latency percentiles, error rates, user-level usage. Free open-source. If you're building LLM products, this pays for itself immediately.</div></div><div class="badge b-gap">gap fill · free</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--green)"></div><div class="row-info"><div class="row-title">PromptFoo (promptfoo.dev) — LLM testing and red-teaming</div><div class="row-note">Open-source tool for evaluating prompts, testing for regressions, red-teaming for jailbreaks. The CI/CD equivalent for prompt pipelines. Required if you're maintaining production prompts.</div></div><div class="badge b-gap">gap fill · free</div></div>
+      </div>
+    </div>
+
+    <div class="track">
+      <div class="track-label"><span class="pill pill-blog" style="font-size:9px">Follow</span>Signal feeds — stay current without the noise</div>
+      <div class="rows">
+        <div class="row"><div class="row-dot" style="background:var(--green)"></div><div class="row-info"><div class="row-title">The Batch — deeplearning.ai newsletter (weekly, free)</div><div class="row-note">Andrew Ng's weekly newsletter. One email, ~10 minutes. Covers new papers, industry moves, practical applications. Best signal-to-noise ratio in ML newsletters. Not vendor marketing.</div></div><div class="badge b-gap">ongoing · free</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--green)"></div><div class="row-info"><div class="row-title">Chip Huyen's blog (huyenchip.com) + newsletter</div><div class="row-note">Chip writes long-form essays on ML engineering topics that are 2–3 years ahead of most courses. Posts like "Building LLM applications for production" and "Evaluating LLMs" are essential reading. Subscribe and read everything.</div></div><div class="badge b-gap">ongoing · free</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--green)"></div><div class="row-info"><div class="row-title">Lilian Weng's blog — lilianweng.github.io (OpenAI researcher)</div><div class="row-note">Long-form technical deep dives on LLMs, agents, diffusion models, RL. The gold standard of ML blog writing — rigorous, comprehensive, visually clear. Her posts on "LLM-powered Autonomous Agents" and "Prompt Engineering" are mandatory reading.</div></div><div class="badge b-gap">ongoing · free</div></div>
+        <div class="row"><div class="row-dot" style="background:var(--green)"></div><div class="row-info"><div class="row-title">Papers With Code (paperswithcode.com, free)</div><div class="row-note">Every significant ML paper with linked implementation. Use for two things: (1) tracking state-of-the-art benchmarks, (2) finding the implementation when you want to understand a paper by running it. The SOTA tables tell you what actually works.</div></div><div class="badge b-gap">ongoing · free</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /main -->
+
+<div class="footer">
+  Senior AI / ML Engineer Roadmap · v1.0 · 2026 · Every resource justified. Every gap identified.
+</div>
+
+<script>
+function tog(header) {
+  const body = header.nextElementSibling;
+  const chev = header.querySelector('.phase-chev');
+  const isOpen = body.classList.toggle('open');
+  chev.textContent = isOpen ? '▲' : '▼';
+}
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.phase-body').forEach(b => {
+    const chev = b.previousElementSibling.querySelector('.phase-chev');
+    if (!b.classList.contains('open')) {
+      chev.textContent = '▼';
+    } else {
+      chev.textContent = '▲';
+    }
+  });
+});
+</script>
+</body>
+</html>
